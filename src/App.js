@@ -1,11 +1,14 @@
 import './App.css';
 import Header from "./Header/Header";
+import {RecoilRoot} from "recoil";
 
 function App() {
   return (
-    <div className="App" data-testid='App'>
-      <Header data-testId='Header-Component'/>
-    </div>
+      <RecoilRoot>
+        <div className="App" data-testid='App'>
+          <Header data-testId='Header-Component'/>
+        </div>
+      </RecoilRoot>
   );
 }
 
