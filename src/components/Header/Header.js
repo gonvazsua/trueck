@@ -1,10 +1,17 @@
 import {AppBar, IconButton, makeStyles, Toolbar} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import {useHistory} from "react-router";
 
 function Header() {
 
     const classes = useStyles();
+    const history = useHistory();
+
+    const handleLoginClick = () => {
+        history.push('login');
+    };
 
     return (
         <AppBar position="static">
@@ -15,6 +22,7 @@ function Header() {
                 <Typography variant="h6" className={classes.title} data-testid='header-title'>
                     Trueck
                 </Typography>
+                <Button color="inherit" data-testid='header-loginButton' onClick={handleLoginClick}>Login</Button>
             </Toolbar>
         </AppBar>
     );
