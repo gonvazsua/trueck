@@ -1,42 +1,46 @@
 import {render, screen} from "@testing-library/react";
 import Header from "./Header";
-import { createBrowserHistory } from 'history';
-import { Router } from 'react-router';
-import {RecoilRoot} from "recoil";
+import { createMemoryHistory } from 'history';
+import { Router } from "react-router";
 
 describe('Header', () => {
 
-    const history = createBrowserHistory();
+    const history = createMemoryHistory();
+    const nameMock = 'NameMock';
 
-    const renderComponent = () => {
+    const renderComponent = (name, isLoggedIn) => {
         return render(
-            <RecoilRoot>
-                <Router history={history}>
-                    <Header />
-                </Router>
-            </RecoilRoot>
+            <Router history={history}>
+                <Header name={name} isLoggedIn={isLoggedIn}/>
+            </Router>
             );
     };
 
     test('should render the Header', () => {
 
-        renderComponent();
+        renderComponent(nameMock, false);
         expect(screen.getByTestId('header-menuIcon')).toBeInTheDocument();
         expect(screen.getByTestId('header-title')).toHaveTextContent('Trueck');
 
     });
 
     test('should render login button when user is not logged in', () => {
-        renderComponent();
+        renderComponent(nameMock, false);
         expect(screen.getByTestId('header-loginButton')).toBeInTheDocument();
     });
 
     test('should redirect to login when clicking on login button', () => {
-        renderComponent();
+        renderComponent(nameMock, false);
         const loginButton = screen.getByTestId('header-loginButton');
         expect(loginButton).toBeInTheDocument();
         loginButton.click();
-        expect(history.location.pathname).toEqual('/login');
+        expect(history.location.pathname).toEqual('login');
+    });
+
+    test('should render user name when user is logged in and not to show the login button', () => {
+        renderComponent(nameMock, true);
+        expect(screen.queryByRole('button', { name: /loginButton/i })).not.toBeInTheDocument();
+        expect(screen.queryByText(/NameMock/i)).toBeInTheDocument();
     });
 
 });

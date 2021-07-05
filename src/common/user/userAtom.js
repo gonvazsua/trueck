@@ -1,6 +1,6 @@
 const {atom} = require("recoil");
 
-export const userState = atom({
+export const userAtom = atom({
     key: 'userState',
     default: {
         isLogged: false,
