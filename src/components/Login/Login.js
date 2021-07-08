@@ -1,6 +1,5 @@
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -8,75 +7,95 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import {makeStyles} from "@material-ui/core";
+import {useRecoilState} from "recoil";
+import {loginAtom} from "./loginAtom";
+import {useLoginAPI} from "./loginAPI";
 
 const Login = () => {
 
     const classes = useStyles();
+    const [loginState, setLoginState] = useRecoilState(loginAtom);
+
+    const handleOnChangeEmail = (event) => {
+        setLoginState({...loginState, email: event.target.value});
+    };
+
+    const handleOnChangePassword = (event) => {
+        setLoginState({...loginState, password: event.target.value});
+    };
+
+    const handleOnSubmit = (event) => {
+        event.preventDefault();
+        useLoginAPI(loginState.email, loginState.password);
+    };
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline/>
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon/>
-                </Avatar>
-                <Typography component="h1" variant="h5" data-testid='login-title'>
-                    Sign in
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary"/>}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        data-testid='login-submitbutton'
-                        className={classes.submit}
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
+        <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+                <LockOutlinedIcon/>
+            </Avatar>
+            <Typography component="h1" variant="h5" data-testid='login-title'>
+                Sign in
+            </Typography>
+            <form className={classes.form} noValidate
+                  onSubmit={(event) => handleOnSubmit(event)}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    inputProps={{"data-testid": "login-emailField"}}
+                    onChange={(event) => handleOnChangeEmail(event)}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    inputProps={{"data-testid": "login-passwordField"}}
+                    onChange={(event) => handleOnChangePassword(event)}
+                />
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary"/>}
+                    label="Remember me"
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    data-testid='login-submitbutton'
+                    className={classes.submit}
+                    disabled={!loginState.email && !loginState.password}
+                    id="login-submit-button"
+                >
+                    Sign In
+                </Button>
+                <Grid container>
+                    <Grid item xs>
+                        <Link href="#" variant="body2">
+                            Forgot password?
+                        </Link>
                     </Grid>
-                </form>
-            </div>
-        </Container>
+                    <Grid item>
+                        <Link href="#" variant="body2">
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                    </Grid>
+                </Grid>
+            </form>
+        </div>
     );
 
 };

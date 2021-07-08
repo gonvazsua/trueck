@@ -4,6 +4,8 @@ import {useRecoilValue} from "recoil";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {userAtom} from "./common/user/userAtom";
 import Login from "./components/Login/Login";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
 
 const App = () => {
 
@@ -16,11 +18,14 @@ const App = () => {
                 <Header data-testId='Header-Component'
                         name={userState.user?.name}
                         isLoggedIn={userState.isLoggedIn}/>
-                <Switch>
-                    <Route exact path="/login">
-                        <Login/>
-                    </Route>
-                </Switch>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline/>
+                    <Switch>
+                        <Route exact path="/login">
+                            <Login/>
+                        </Route>
+                    </Switch>
+                </Container>
             </BrowserRouter>
         </div>
     );
