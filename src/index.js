@@ -4,12 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {RecoilRoot} from "recoil";
+import firebase from "firebase/app";
+import "firebase/auth";
+import {firebaseConfig} from "./firebase";
+import {FirebaseAuthProvider} from "@react-firebase/auth";
 
 ReactDOM.render(
     <React.StrictMode>
-        <RecoilRoot>
-            <App/>
-        </RecoilRoot>
+        <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
+            <RecoilRoot>
+                <App/>
+            </RecoilRoot>
+        </FirebaseAuthProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
