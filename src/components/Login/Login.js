@@ -8,16 +8,18 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/core";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {loginAtom} from "./loginAtom";
-import {signInWithGoogle, signInWithUsernameAndPassword} from "./loginAPI";
+import {signInWithEmailAndPassword, signInWithGoogle} from "./loginAPI";
 import {useHistory} from "react-router-dom";
+import {userAtom} from "../../common/user/userAtom";
 
 const Login = () => {
 
     const classes = useStyles();
     const history = useHistory();
     const [loginState, setLoginState] = useRecoilState(loginAtom);
+    const setUserState = useSetRecoilState(userAtom);
 
     const handleOnChangeEmail = (event) => {
         setLoginState({...loginState, email: event.target.value});
@@ -28,13 +30,29 @@ const Login = () => {
     };
 
     const handleOnSubmit = (event) => {
-        signInWithUsernameAndPassword(loginState.email, loginState.password);
-        event.preventDefault();
-        history.push('')
+        signInWithEmailAndPassword(loginState.email, loginState.password)
+            .then((userCredentials) => {
+                setUserState({
+                    isLogged: true,
+                    userCredentials: userCredentials
+                })
+                history.push('')
+            });
     };
 
     const handleClickSignWithGoogle = () => {
-        signInWithGoogle();
+        signInWithGoogle()
+            .then((userCredentials) => {
+                setUserState({
+                    isLogged: true,
+                    displayName: userCredentials.user.displayName,
+                    email: userCredentials.user.email,
+                    photoURL: userCredentials.user.photoURL,
+                    createdAt: userCredentials.user.createdAt,
+                    uid: userCredentials.user.uid
+                })
+                history.push('');
+            });
     };
 
     return (

@@ -1,12 +1,10 @@
 import firebase from "firebase/app";
 
-export const signInWithUsernameAndPassword = (username, password) => {
-
+export const signInWithEmailAndPassword = async (email, password) => {
+    return await firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
-export const signInWithGoogle = () => {
+export const signInWithGoogle = async () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    console.log(googleAuthProvider);
-    console.log(firebase.auth())
-    return firebase.auth().signInWithPopup(googleAuthProvider);
+    return await firebase.auth().signInWithPopup(googleAuthProvider);
 };

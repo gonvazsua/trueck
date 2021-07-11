@@ -8,10 +8,10 @@ describe('Header', () => {
     const history = createMemoryHistory();
     const nameMock = 'NameMock';
 
-    const renderComponent = (name, isLoggedIn) => {
+    const renderComponent = () => {
         return render(
             <Router history={history}>
-                <Header name={name} isLoggedIn={isLoggedIn}/>
+                <Header />
             </Router>
             );
     };
@@ -35,12 +35,6 @@ describe('Header', () => {
         expect(loginButton).toBeInTheDocument();
         loginButton.click();
         expect(history.location.pathname).toEqual('login');
-    });
-
-    test('should render user name when user is logged in and not to show the login button', () => {
-        renderComponent(nameMock, true);
-        expect(screen.queryByRole('button', { name: /loginButton/i })).not.toBeInTheDocument();
-        expect(screen.queryByText(/NameMock/i)).toBeInTheDocument();
     });
 
 });

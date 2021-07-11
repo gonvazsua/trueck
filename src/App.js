@@ -16,7 +16,7 @@ const App = () => {
         <div data-testid='app'>
             <BrowserRouter>
                 <Header data-testId='Header-Component'
-                        name={userState.user?.name}
+                        name={userState.displayName}
                         isLoggedIn={userState.isLoggedIn}/>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>

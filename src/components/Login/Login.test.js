@@ -1,7 +1,7 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
 import Login from "./Login";
-import {signInWithGoogle, signInWithUsernameAndPassword} from "./loginAPI";
+import {signInWithGoogle, signInWithEmailAndPassword} from "./loginAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 
@@ -10,16 +10,6 @@ jest.mock('./loginAPI');
 describe('Login', () => {
 
     const history = createMemoryHistory();
-
-    const userCredentials = {
-        user: {
-            emailVerified: true,
-            isAnonymous: false,
-            displayName: 'Test',
-            email: 'test@test.com',
-            photoURL: 'urlMock'
-        }
-    }
 
     beforeEach(() => {
         jest.restoreAllMocks();
@@ -61,7 +51,7 @@ describe('Login', () => {
         fireEvent.change(screen.getByTestId('login-passwordField'), { target: { value: mockPassword } });
         fireEvent.click(screen.getByTestId('login-submitButton'));
 
-        expect(signInWithUsernameAndPassword).toBeCalledWith(mockEmail, mockPassword);
+        expect(signInWithEmailAndPassword).toBeCalledWith(mockEmail, mockPassword);
     });
 
     test('should call to sing in with Google when click in button Sign in with Google',  () => {
@@ -79,8 +69,15 @@ describe('Login', () => {
         fireEvent.change(screen.getByTestId('login-passwordField'), { target: { value: mockPassword } });
         fireEvent.click(screen.getByTestId('login-submitButton'));
 
-        expect(signInWithUsernameAndPassword).toBeCalledWith(mockEmail, mockPassword);
+        expect(signInWithEmailAndPassword).toBeCalledWith(mockEmail, mockPassword);
 
+        expect(history.location.pathname).toEqual('/');
+    });
+
+    test('should redirect to Root path after signing in with Google',  () => {
+        renderComponent();
+        fireEvent.click(screen.getByTestId('login-signInGoogle'));
+        expect(signInWithGoogle).toBeCalledTimes(1);
         expect(history.location.pathname).toEqual('/')
     });
 
