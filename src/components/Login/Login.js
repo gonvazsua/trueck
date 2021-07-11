@@ -10,11 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/core";
 import {useRecoilState} from "recoil";
 import {loginAtom} from "./loginAtom";
-import {useLoginAPI} from "./loginAPI";
+import {signInWithGoogle, signInWithUsernameAndPassword} from "./loginAPI";
+import {useHistory} from "react-router-dom";
 
 const Login = () => {
 
     const classes = useStyles();
+    const history = useHistory();
     const [loginState, setLoginState] = useRecoilState(loginAtom);
 
     const handleOnChangeEmail = (event) => {
@@ -26,8 +28,13 @@ const Login = () => {
     };
 
     const handleOnSubmit = (event) => {
+        signInWithUsernameAndPassword(loginState.email, loginState.password);
         event.preventDefault();
-        useLoginAPI(loginState.email, loginState.password);
+        history.push('')
+    };
+
+    const handleClickSignWithGoogle = () => {
+        signInWithGoogle();
     };
 
     return (
@@ -72,15 +79,25 @@ const Login = () => {
                 />
                 <Button
                     type="submit"
-                    fullWidth
                     variant="contained"
                     color="primary"
-                    data-testid='login-submitbutton'
+                    data-testid='login-submitButton'
                     className={classes.submit}
                     disabled={!loginState.email && !loginState.password}
                     id="login-submit-button"
                 >
                     Sign In
+                </Button>
+                <Button
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    data-testid="login-signInGoogle"
+                    className={classes.submit}
+                    id="login-sign-in-google"
+                    onClick={handleClickSignWithGoogle}
+                >
+                    Sign In with Google
                 </Button>
                 <Grid container>
                     <Grid item xs>
