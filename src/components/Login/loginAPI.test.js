@@ -1,5 +1,4 @@
 import {signInWithGoogle} from "./loginAPI";
-import firebase from 'firebase/app';
 
 jest.mock('firebase/app', () => {
     const auth = jest.fn();

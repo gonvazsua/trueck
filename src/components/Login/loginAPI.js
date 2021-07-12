@@ -8,3 +8,7 @@ export const signInWithGoogle = async () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     return await firebase.auth().signInWithPopup(googleAuthProvider);
 };
+
+export const signOut = async () => {
+    return await firebase.auth().signOut();
+}
