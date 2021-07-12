@@ -18,7 +18,7 @@ describe('App component', () => {
     });
 
     test('should render header and login component', () => {
-        const page = renderComponent();
+        renderComponent();
         const loginButton = screen.getByTestId('header-loginButton');
         expect(loginButton).toBeInTheDocument();
         loginButton.click();
