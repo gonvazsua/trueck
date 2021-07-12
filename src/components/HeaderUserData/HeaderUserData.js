@@ -27,7 +27,7 @@ const HeaderUserData = (props) => {
                 <Typography variant="h6" className={classes.title} data-testid='header-user-name'>
                     {user?.displayName}
                 </Typography>
-                <Button color="secondary" data-testid='header-logoutButton'
+                <Button color="secondary" variant='contained' data-testid='header-logoutButton'
                         name="loginButton" onClick={handleLogoutClick}>Logout</Button>
             </div>
         );
@@ -55,6 +55,7 @@ const HeaderUserData = (props) => {
 const useStyles = makeStyles(() => ({
     title: {
         flexGrow: 1,
+        marginRight: '2rem',
     },
     userInformation: {
         display: 'flex',

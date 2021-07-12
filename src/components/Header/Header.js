@@ -13,7 +13,7 @@ function Header(props) {
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" data-testid='header-menuIcon'>
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title} data-testid='header-title'>
+                <Typography align='center' variant="h6" className={classes.title} data-testid='header-title'>
                     Trueck
                 </Typography>
                 {loginComponent}
