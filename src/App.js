@@ -1,23 +1,19 @@
 import './App.css';
 import Header from "./components/Header/Header";
-import {useRecoilValue} from "recoil";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {userAtom} from "./common/user/userAtom";
 import Login from "./components/Login/Login";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
+import HeaderUserData from "./components/HeaderUserData/HeaderUserData";
 
 const App = () => {
 
-    const userState = useRecoilValue(userAtom);
+    const headerUserData = <HeaderUserData />
 
     return (
-
         <div data-testid='app'>
             <BrowserRouter>
-                <Header data-testId='Header-Component'
-                        name={userState.displayName}
-                        isLoggedIn={userState.isLoggedIn}/>
+                <Header login={headerUserData} data-testId='Header-Component'/>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <Switch>

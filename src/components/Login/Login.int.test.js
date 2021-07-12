@@ -14,6 +14,10 @@ jest.mock('./loginAPI', () => {
 
 describe('Login integration test', () => {
 
+    const mockLoginComponent = (
+        <div>Mock name</div>
+    );
+
     const userCredentials = {
         user: {
             displayName: 'Mock name'
@@ -26,7 +30,7 @@ describe('Login integration test', () => {
         return render(
             <RecoilRoot>
                 <Router history={history}>
-                    <Header/>
+                    <Header login={mockLoginComponent}/>
                     <Login/>
                 </Router>
             </RecoilRoot>

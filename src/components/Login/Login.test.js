@@ -11,8 +11,27 @@ describe('Login', () => {
 
     const history = createMemoryHistory();
 
+    const userCredentials = {
+        user: {
+            displayName: 'Mock name'
+        }
+    };
+
     beforeEach(() => {
         jest.restoreAllMocks();
+
+        signInWithGoogle.mockImplementation(() => {
+            return new Promise((resolve, reject) => {
+                resolve(userCredentials);
+            });
+        });
+
+        signInWithEmailAndPassword.mockImplementation(() => {
+            return new Promise((resolve, reject) => {
+                resolve(userCredentials);
+            });
+        });
+
     });
 
     const renderComponent = () => {

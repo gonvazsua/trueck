@@ -21,4 +21,8 @@ describe('Login API test', () => {
     //
     // });
 
+    test('should exists function signInWithGoogle', () => {
+        expect(signInWithGoogle).not.toBeUndefined();
+    });
+
 });
