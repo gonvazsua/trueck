@@ -15,6 +15,7 @@ describe('App component', () => {
     test('should render App compoment', () => {
         renderComponent();
         expect(screen.getByTestId('app')).toBeInTheDocument();
+        expect(screen.getByTestId('landingPage')).toBeInTheDocument();
     });
 
     test('should render header and login component', () => {
@@ -23,11 +24,6 @@ describe('App component', () => {
         expect(loginButton).toBeInTheDocument();
         loginButton.click();
         expect(screen.getByTestId('login-title')).toBeInTheDocument();
-    });
-
-    test('should render the landing page', () => {
-        renderComponent();
-        expect(screen.getByTestId('landingPage')).toBeInTheDocument();
     });
 
 });

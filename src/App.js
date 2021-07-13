@@ -18,11 +18,11 @@ const App = () => {
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <Switch>
-                        <Route exact path="/">
-                            <LandingPage />
-                        </Route>
                         <Route exact path="/login">
                             <Login/>
+                        </Route>
+                        <Route exact path="/">
+                            <LandingPage />
                         </Route>
                     </Switch>
                 </Container>
