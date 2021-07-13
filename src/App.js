@@ -5,6 +5,7 @@ import Login from "./components/Login/Login";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import HeaderUserData from "./components/HeaderUserData/HeaderUserData";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App = () => {
 
@@ -17,6 +18,9 @@ const App = () => {
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <Switch>
+                        <Route exact path="/">
+                            <LandingPage />
+                        </Route>
                         <Route exact path="/login">
                             <Login/>
                         </Route>

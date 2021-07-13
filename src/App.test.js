@@ -25,4 +25,9 @@ describe('App component', () => {
         expect(screen.getByTestId('login-title')).toBeInTheDocument();
     });
 
+    test('should render the landing page', () => {
+        renderComponent();
+        expect(screen.getByTestId('landingPage')).toBeInTheDocument();
+    });
+
 });
