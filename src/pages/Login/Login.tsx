@@ -8,11 +8,14 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, Snackbar} from "@material-ui/core";
 import {useRecoilState} from "recoil";
 import {loginAtom} from "./loginAtom";
 import {signInWithEmailAndPassword} from "./loginAPI";
 import {useHistory} from "react-router-dom";
+import {Close} from "@material-ui/icons";
+import Alert from '@material-ui/lab/Alert';
+
 
 const Login = (): JSX.Element => {
 
@@ -31,7 +34,11 @@ const Login = (): JSX.Element => {
     const handleOnSubmit = () => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
             .then(() => {
+                setLoginState({...loginState, successLogin: true});
                 history.push('')
+            })
+            .catch(() => {
+                setLoginState({...loginState, incorrectLogin: true});
             });
     };
 
@@ -99,6 +106,19 @@ const Login = (): JSX.Element => {
                     </Grid>
                 </Grid>
             </form>
+
+            <Snackbar open={loginState.incorrectLogin} autoHideDuration={3000} data-testid={'login-loginIncorrectMessage'}>
+                <Alert severity="error">
+                    Email o contraseña incorrectos, por favor, inténtalo de nuevo
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={loginState.successLogin} autoHideDuration={3000} data-testid={'login-loginSuccessMessage'}>
+                <Alert severity="success">
+                    Login correcto. Ya puedes encontrar tu vestido más apropiado!
+                </Alert>
+            </Snackbar>
+
         </div>
     );
 

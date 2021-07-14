@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
 import { signInWithEmailAndPassword} from "./loginAPI";
 import {createMemoryHistory} from "history";
@@ -11,21 +11,8 @@ describe('Login', () => {
 
     const history = createMemoryHistory();
 
-    const userCredentials = {
-        user: {
-            displayName: 'Mock name'
-        }
-    };
-
     beforeEach(() => {
         jest.restoreAllMocks();
-
-        (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
-            return new Promise((resolve) => {
-                resolve(userCredentials);
-            });
-        });
-
     });
 
     const renderComponent = () => {
@@ -56,6 +43,12 @@ describe('Login', () => {
 
     test('should call to login API when clicking on sing in with Username and Password', () => {
 
+        (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
+            return new Promise<void>((resolve) => {
+                resolve();
+            });
+        });
+
         renderComponent();
 
         let mockEmail = 'mockemail@mock.com';
@@ -67,7 +60,14 @@ describe('Login', () => {
         expect(signInWithEmailAndPassword).toBeCalledWith(mockEmail, mockPassword);
     });
 
-    test('should redirect to Root path after signing in with username and password', () => {
+    test('should show success message and redirect to Root path after signing in with username and password', async() => {
+
+        (signInWithEmailAndPassword as jest.Mock).mockImplementation(async () => {
+            return new Promise<void>((resolve) => {
+                resolve();
+            });
+        });
+
         renderComponent();
 
         let mockEmail = 'mockemail@mock.com';
@@ -78,7 +78,33 @@ describe('Login', () => {
 
         expect(signInWithEmailAndPassword).toBeCalledWith(mockEmail, mockPassword);
 
+        await waitFor(() => {
+            expect(screen.getByTestId('login-loginSuccessMessage')).toBeInTheDocument();
+        });
+
         expect(history.location.pathname).toEqual('/');
+    });
+
+    test('should show incorrect login message when the login process fails', async () => {
+
+        (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
+            return new Promise<string>((resolve, reject) => {
+                reject('Login error');
+            });
+        });
+
+        renderComponent();
+
+        let mockEmail = 'mockemail@mock.com';
+        let mockPassword = 'mockPassword';
+        fireEvent.change(screen.getByTestId('login-emailField'), { target: { value: mockEmail } });
+        fireEvent.change(screen.getByTestId('login-passwordField'), { target: { value: mockPassword } });
+        fireEvent.click(screen.getByTestId('login-submitButton'));
+
+        await waitFor(() => {
+            expect(screen.getByTestId('login-loginIncorrectMessage')).toBeInTheDocument();
+        });
+
     });
 
 });
