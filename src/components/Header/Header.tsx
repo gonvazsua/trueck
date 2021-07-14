@@ -1,15 +1,20 @@
+import React from 'react';
 import {AppBar, IconButton, makeStyles, Toolbar} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import {useHistory} from "react-router-dom";
 import {Favorite, ShoppingBasket} from "@material-ui/icons";
 
-function Header(props) {
+interface HeaderProps {
+    loginComponent: React.ReactNode;
+}
+
+const Header = (props: HeaderProps): JSX.Element => {
 
     const classes = useStyles();
     const history = useHistory();
-    const loginComponent = props.login;
+    const { loginComponent } = props;
 
-    const handleClickNavigation = (path) => {
+    const handleClickNavigation = (path: string) => {
         history.push(path);
     };
 
@@ -17,7 +22,7 @@ function Header(props) {
         <AppBar position="static" color='default'>
             <Toolbar>
                 <Typography align='left' variant="h6" className={classes.title} data-testid='header-title'
-                            onClick={() => handleClickNavigation()}>
+                            onClick={() => handleClickNavigation('')}>
                     Trueck
                 </Typography>
                 <div className={classes.grow}/>

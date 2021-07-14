@@ -1,4 +1,6 @@
-const LandingPage = () => {
+import React from 'react';
+
+const LandingPage = (): JSX.Element => {
 
     return (
         <div data-testid='landingPage'>

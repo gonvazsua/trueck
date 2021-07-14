@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -7,14 +8,14 @@ import Container from "@material-ui/core/Container";
 import HeaderUserData from "./components/HeaderUserData/HeaderUserData";
 import LandingPage from "./pages/LandingPage/LandingPage";
 
-const App = () => {
+const App = (): JSX.Element => {
 
     const headerUserData = <HeaderUserData />
 
     return (
         <div data-testid='app'>
             <BrowserRouter>
-                <Header login={headerUserData} data-testId='Header-Component'/>
+                <Header loginComponent={headerUserData} data-testId='Header-Component'/>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <Switch>

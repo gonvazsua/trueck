@@ -105,4 +105,4 @@ dist
 
 # IDE
 .idea/
-/src/firebase.js
+/src/firebase.tsx

@@ -1,9 +1,9 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
-import Login from "./Login";
 import {signInWithGoogle, signInWithEmailAndPassword} from "./loginAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
+import Login from "./Login";
 
 jest.mock('./loginAPI');
 
@@ -20,14 +20,14 @@ describe('Login', () => {
     beforeEach(() => {
         jest.restoreAllMocks();
 
-        signInWithGoogle.mockImplementation(() => {
-            return new Promise((resolve, reject) => {
+        (signInWithGoogle as jest.Mock).mockImplementation(() => {
+            return new Promise((resolve) => {
                 resolve(userCredentials);
             });
         });
 
-        signInWithEmailAndPassword.mockImplementation(() => {
-            return new Promise((resolve, reject) => {
+        (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
+            return new Promise((resolve) => {
                 resolve(userCredentials);
             });
         });
@@ -73,12 +73,6 @@ describe('Login', () => {
         expect(signInWithEmailAndPassword).toBeCalledWith(mockEmail, mockPassword);
     });
 
-    test('should call to sing in with Google when click in button Sign in with Google',  () => {
-        renderComponent();
-        fireEvent.click(screen.getByTestId('login-signInGoogle'));
-        expect(signInWithGoogle).toBeCalledTimes(1);
-    });
-
     test('should redirect to Root path after signing in with username and password', () => {
         renderComponent();
 
@@ -91,13 +85,6 @@ describe('Login', () => {
         expect(signInWithEmailAndPassword).toBeCalledWith(mockEmail, mockPassword);
 
         expect(history.location.pathname).toEqual('/');
-    });
-
-    test('should redirect to Root path after signing in with Google',  () => {
-        renderComponent();
-        fireEvent.click(screen.getByTestId('login-signInGoogle'));
-        expect(signInWithGoogle).toBeCalledTimes(1);
-        expect(history.location.pathname).toEqual('/')
     });
 
 });

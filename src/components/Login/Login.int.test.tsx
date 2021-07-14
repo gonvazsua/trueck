@@ -1,6 +1,6 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
-import Header from "../Header/Header";
-import Login from "./Login";
+import Header from "../Header/Header.tsx";
+import Login from "./Login.tsx";
 import {RecoilRoot} from "recoil";
 import {signInWithGoogle} from "./loginAPI";
 import {createMemoryHistory} from "history";

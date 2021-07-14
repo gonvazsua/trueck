@@ -1,7 +1,7 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import Header from "./Header";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
+import Header from "./Header";
 
 describe('Header', () => {
 
@@ -15,7 +15,7 @@ describe('Header', () => {
         history.push(initialPath);
         return render(
             <Router history={history}>
-                <Header login={childComponent}/>
+                <Header loginComponent={childComponent}/>
             </Router>
         );
     };

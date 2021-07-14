@@ -1,3 +1,4 @@
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,20 +11,20 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/core";
 import {useRecoilState} from "recoil";
 import {loginAtom} from "./loginAtom";
-import {signInWithEmailAndPassword, signInWithGoogle} from "./loginAPI";
+import {signInWithEmailAndPassword} from "./loginAPI";
 import {useHistory} from "react-router-dom";
 
-const Login = () => {
+const Login = (): JSX.Element => {
 
     const classes = useStyles();
     const history = useHistory();
     const [loginState, setLoginState] = useRecoilState(loginAtom);
 
-    const handleOnChangeEmail = (event) => {
+    const handleOnChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, email: event.target.value});
     };
 
-    const handleOnChangePassword = (event) => {
+    const handleOnChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, password: event.target.value});
     };
 
@@ -31,13 +32,6 @@ const Login = () => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
             .then(() => {
                 history.push('')
-            });
-    };
-
-    const handleClickSignWithGoogle = () => {
-        signInWithGoogle()
-            .then(() => {
-                history.push('');
             });
     };
 
@@ -61,7 +55,7 @@ const Login = () => {
                     autoComplete="email"
                     autoFocus
                     inputProps={{"data-testid": "login-emailField"}}
-                    onChange={(event) => handleOnChangeEmail(event)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleOnChangeEmail(event)}
                 />
                 <TextField
                     variant="outlined"
@@ -74,7 +68,7 @@ const Login = () => {
                     id="password"
                     autoComplete="current-password"
                     inputProps={{"data-testid": "login-passwordField"}}
-                    onChange={(event) => handleOnChangePassword(event)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleOnChangePassword(event)}
                 />
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary"/>}
@@ -91,17 +85,6 @@ const Login = () => {
                     onClick={() => handleOnSubmit()}
                 >
                     Sign In
-                </Button>
-                <Button
-                    type="button"
-                    variant="contained"
-                    color="primary"
-                    data-testid="login-signInGoogle"
-                    className={classes.submit}
-                    id="login-sign-in-google"
-                    onClick={handleClickSignWithGoogle}
-                >
-                    Sign In with Google
                 </Button>
                 <Grid container>
                     <Grid item xs>
