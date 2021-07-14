@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
-import {signInWithGoogle, signInWithEmailAndPassword} from "./loginAPI";
+import { signInWithEmailAndPassword} from "./loginAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import Login from "./Login";
@@ -19,12 +19,6 @@ describe('Login', () => {
 
     beforeEach(() => {
         jest.restoreAllMocks();
-
-        (signInWithGoogle as jest.Mock).mockImplementation(() => {
-            return new Promise((resolve) => {
-                resolve(userCredentials);
-            });
-        });
 
         (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
             return new Promise((resolve) => {

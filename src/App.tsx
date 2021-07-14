@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Login from "./components/Login/Login";
+import Login from "./pages/Login/Login";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import HeaderUserData from "./components/HeaderUserData/HeaderUserData";
