@@ -1,5 +1,4 @@
 const Cookies = require('js-cookie');
-
 export const doFetch: (url: string, options?: RequestInit) => Promise<Response> = async (
     url: string,
     options = {

@@ -16,7 +16,6 @@ import {useHistory} from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
 const Cookies = require('js-cookie');
 
-
 const Login = (): JSX.Element => {
 
     const classes = useStyles();
@@ -35,11 +34,24 @@ const Login = (): JSX.Element => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
             .then((loginResponse: LoginResponse) => {
                 Cookies.set('XSRF-TOKEN', loginResponse.token);
+                storeLoginDataOnLocalStorage();
                 history.push('')
             })
             .catch(() => {
                 setLoginState({...loginState, incorrectLogin: true});
             });
+    };
+
+    const storeLoginDataOnLocalStorage = () => {
+        if(loginState.rememberMe) {
+            localStorage.setItem('trueck-email', loginState.email);
+            localStorage.setItem('trueck-password', loginState.password);
+            localStorage.setItem('trueck-rememberMe', String(loginState.rememberMe));
+        }
+    };
+
+    const handleOnChangeRememberMe = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLoginState({...loginState, rememberMe: event.target.checked});
     };
 
     return (
@@ -78,7 +90,14 @@ const Login = (): JSX.Element => {
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleOnChangePassword(event)}
                 />
                 <FormControlLabel
-                    control={<Checkbox value="remember" color="primary"/>}
+                    control={
+                        <Checkbox
+                            data-testid={'login-rememberMe'}
+                            value="remember"
+                            color="primary"
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleOnChangeRememberMe(event)}
+                        />
+                    }
                     label="Remember me"
                 />
                 <Button
@@ -107,7 +126,8 @@ const Login = (): JSX.Element => {
                 </Grid>
             </form>
 
-            <Snackbar open={loginState.incorrectLogin} autoHideDuration={3000} data-testid={'login-loginIncorrectMessage'}>
+            <Snackbar open={loginState.incorrectLogin} autoHideDuration={3000}
+                      data-testid={'login-loginIncorrectMessage'}>
                 <Alert severity="error">
                     Email o contraseña incorrectos, por favor, inténtalo de nuevo
                 </Alert>

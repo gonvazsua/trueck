@@ -1,14 +1,11 @@
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
-import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
+import {signInWithEmailAndPassword} from "./loginAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import Login from "./Login";
-const Cookies = require('js-cookie');
 
 jest.mock('./loginAPI');
-jest.mock('js-cookie', () => jest.fn());
-
 describe('Login', () => {
 
     const history = createMemoryHistory();
