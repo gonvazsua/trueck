@@ -14,6 +14,8 @@ import {loginDataAtom, loginStatusAtom} from "./loginDataAtom";
 import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
 import {useHistory} from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
+import {getLoggedUser} from "../../api/user/userAPI";
+import {User, userAtom} from "../../common/user/userAtom";
 const Cookies = require('js-cookie');
 
 const Login = (): JSX.Element => {
@@ -22,6 +24,7 @@ const Login = (): JSX.Element => {
     const history = useHistory();
     const [loginState, setLoginState] = useRecoilState(loginDataAtom);
     const setLoginStatusState = useSetRecoilState(loginStatusAtom);
+    const setUserState = useSetRecoilState(userAtom);
 
     const handleOnChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, email: event.target.value});
@@ -37,6 +40,7 @@ const Login = (): JSX.Element => {
                 setLoginStatusState(true);
                 Cookies.set('XSRF-TOKEN', loginResponse.token);
                 storeLoginDataOnLocalStorage();
+                loadLoggedUser();
                 history.push('')
             })
             .catch(() => {
@@ -54,6 +58,14 @@ const Login = (): JSX.Element => {
 
     const handleOnChangeRememberMe = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, rememberMe: event.target.checked});
+    };
+
+    const loadLoggedUser = () => {
+        console.log('Pasa2')
+        getLoggedUser()
+            .then((user: User) => {
+                setUserState(user);
+            });
     };
 
     return (

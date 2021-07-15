@@ -1,11 +1,14 @@
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
-import {signInWithEmailAndPassword} from "./loginAPI";
+import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import Login from "./Login";
+import {getLoggedUser} from "../../api/user/userAPI";
+import {User} from "../../common/user/userAtom";
 
 jest.mock('./loginAPI');
+jest.mock('../../api/user/userAPI');
 describe('Login', () => {
 
     const history = createMemoryHistory();
@@ -77,6 +80,42 @@ describe('Login', () => {
 
         await waitFor(() => {
             expect(screen.getByTestId('login-loginIncorrectMessage')).toBeInTheDocument();
+        });
+
+    });
+
+    test('should get logged user information once the login is done', () => {
+
+        (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
+            return new Promise<LoginResponse>((resolve) => {
+                resolve({
+                    token: 'mock-token'
+                });
+            });
+        });
+
+        (getLoggedUser as jest.Mock).mockImplementation(() => {
+            return new Promise<User>((resolve) => {
+                resolve({
+                    id: 1,
+                    name: 'Test'
+                });
+            });
+        });
+
+        renderComponent();
+
+        let mockEmail = 'mockemail@mock.com';
+        let mockPassword = 'mockPassword';
+
+        act(() => {
+            fireEvent.change(screen.getByTestId('login-emailField'), { target: { value: mockEmail } });
+            fireEvent.change(screen.getByTestId('login-passwordField'), { target: { value: mockPassword } });
+            fireEvent.click(screen.getByTestId('login-submitButton'));
+        });
+
+        waitFor(() => {
+            expect(getLoggedUser).toBeCalled();
         });
 
     });
