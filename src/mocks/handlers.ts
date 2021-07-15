@@ -1,14 +1,22 @@
 import {rest} from 'msw';
+import {API_HOST_NAME} from "../api/url";
+
+interface LoginRequest {
+    email: string;
+    password: string;
+}
+
+interface LoginResponse {
+    token: string;
+}
 
 export const handlers = [
 
-    rest.post('/login', (req, res, ctx) => {
-        // Persist user's authentication in the session
-        const {email, password} = req.params;
+    rest.post<LoginRequest, LoginResponse>(`${API_HOST_NAME}/login`, (req, res, ctx) => {
+        const { email, password } = req.body;
         if (email === 'test@test.com' && password === 'test') {
-            sessionStorage.setItem('is-authenticated', 'true')
             return res(
-                // Respond with a 200 status code
+                ctx.json({token: 'mockToken'}),
                 ctx.status(200),
             )
         }

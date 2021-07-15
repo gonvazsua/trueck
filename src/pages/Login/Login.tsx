@@ -11,10 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles, Snackbar} from "@material-ui/core";
 import {useRecoilState} from "recoil";
 import {loginAtom} from "./loginAtom";
-import {signInWithEmailAndPassword} from "./loginAPI";
+import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
 import {useHistory} from "react-router-dom";
-import {Close} from "@material-ui/icons";
 import Alert from '@material-ui/lab/Alert';
+const Cookies = require('js-cookie');
 
 
 const Login = (): JSX.Element => {
@@ -33,8 +33,8 @@ const Login = (): JSX.Element => {
 
     const handleOnSubmit = () => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
-            .then(() => {
-                setLoginState({...loginState, successLogin: true});
+            .then((loginResponse: LoginResponse) => {
+                Cookies.set('XSRF-TOKEN', loginResponse.token);
                 history.push('')
             })
             .catch(() => {
@@ -110,12 +110,6 @@ const Login = (): JSX.Element => {
             <Snackbar open={loginState.incorrectLogin} autoHideDuration={3000} data-testid={'login-loginIncorrectMessage'}>
                 <Alert severity="error">
                     Email o contraseña incorrectos, por favor, inténtalo de nuevo
-                </Alert>
-            </Snackbar>
-
-            <Snackbar open={loginState.successLogin} autoHideDuration={3000} data-testid={'login-loginSuccessMessage'}>
-                <Alert severity="success">
-                    Login correcto. Ya puedes encontrar tu vestido más apropiado!
                 </Alert>
             </Snackbar>
 

@@ -6,16 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import {RecoilRoot} from "recoil";
 
 ReactDOM.render(
-    <React.StrictMode>
-            <RecoilRoot>
-                <App/>
-            </RecoilRoot>
-    </React.StrictMode>,
+    <RecoilRoot>
+        <App/>
+    </RecoilRoot>,
     document.getElementById('root')
 );
 
 if (process.env.NODE_ENV === 'development') {
-    const { worker } = require('./mocks/browser')
+    const {worker} = require('./mocks/browser')
     worker.start()
 }
 

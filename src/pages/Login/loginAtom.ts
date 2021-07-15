@@ -4,7 +4,6 @@ interface LoginState {
     email: string;
     password: string;
     incorrectLogin: boolean;
-    successLogin: boolean;
 }
 
 export const loginAtom = atom<LoginState>({
@@ -13,6 +12,5 @@ export const loginAtom = atom<LoginState>({
         email: '',
         password: '',
         incorrectLogin: false,
-        successLogin: false,
     },
 });
