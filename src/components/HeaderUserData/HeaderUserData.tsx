@@ -3,8 +3,8 @@ import Button from "@material-ui/core/Button";
 import {useHistory} from "react-router-dom";
 import {makeStyles} from "@material-ui/core";
 import {LoginResponse, signInWithEmailAndPassword, signOut} from "../../pages/Login/loginAPI";
-import {useRecoilState} from "recoil";
-import {loginAtom} from "../../pages/Login/loginAtom";
+import {useRecoilState, useSetRecoilState} from "recoil";
+import {loginDataAtom, loginStatusAtom} from "../../pages/Login/loginDataAtom";
 
 const Cookies = require('js-cookie');
 
@@ -12,12 +12,14 @@ const HeaderUserData = (): JSX.Element => {
 
     const classes = useStyles();
     const history = useHistory();
-    const [loginState, setLoginState] = useRecoilState(loginAtom);
+    const [loginState, setLoginState] = useRecoilState(loginDataAtom);
+    const [loginStatusState, setLoginStatusState] = useRecoilState(loginStatusAtom);
 
     const doLogin = () => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
             .then((loginResponse: LoginResponse) => {
                 Cookies.set('XSRF-TOKEN', loginResponse.token);
+                setLoginStatusState(true);
                 history.push('')
             })
             .catch(() => {
@@ -39,8 +41,8 @@ const HeaderUserData = (): JSX.Element => {
             password: '',
             rememberMe: false,
             incorrectLogin: false,
-            loggedIn: false,
         });
+        setLoginStatusState(false);
     };
 
     const handleLogoutClick = () => {
@@ -69,7 +71,7 @@ const HeaderUserData = (): JSX.Element => {
         );
     }
 
-    return loginState.loggedIn
+    return loginStatusState
         ? getLoggedUserInformation()
         : renderGoToLoginButton();
 

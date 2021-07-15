@@ -9,8 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles, Snackbar} from "@material-ui/core";
-import {useRecoilState} from "recoil";
-import {loginAtom} from "./loginAtom";
+import {useRecoilState, useSetRecoilState} from "recoil";
+import {loginDataAtom, loginStatusAtom} from "./loginDataAtom";
 import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
 import {useHistory} from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
@@ -20,7 +20,8 @@ const Login = (): JSX.Element => {
 
     const classes = useStyles();
     const history = useHistory();
-    const [loginState, setLoginState] = useRecoilState(loginAtom);
+    const [loginState, setLoginState] = useRecoilState(loginDataAtom);
+    const setLoginStatusState = useSetRecoilState(loginStatusAtom);
 
     const handleOnChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginState({...loginState, email: event.target.value});
@@ -33,6 +34,7 @@ const Login = (): JSX.Element => {
     const handleOnSubmit = () => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
             .then((loginResponse: LoginResponse) => {
+                setLoginStatusState(true);
                 Cookies.set('XSRF-TOKEN', loginResponse.token);
                 storeLoginDataOnLocalStorage();
                 history.push('')

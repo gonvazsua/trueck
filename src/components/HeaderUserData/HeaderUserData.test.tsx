@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import {Router} from "react-router";
 import {signInWithEmailAndPassword, signOut} from "../../pages/Login/loginAPI";
 import {RecoilRoot} from "recoil";
-import {loginAtom, LoginState} from "../../pages/Login/loginAtom";
+import {loginDataAtom, LoginState, loginStatusAtom} from "../../pages/Login/loginDataAtom";
 
 jest.mock('../../pages/Login/loginAPI');
 
@@ -18,11 +18,13 @@ describe('HeaderUserData', function () {
             email: email,
             password: password,
             rememberMe: rememberMe,
-            incorrectLogin: false,
-            loggedIn: loggedIn
+            incorrectLogin: false
         }
         render(
-            <RecoilRoot initializeState={(snap) => snap.set(loginAtom, loginState)}>
+            <RecoilRoot initializeState={(snap) => {
+                snap.set(loginDataAtom, loginState)
+                snap.set(loginStatusAtom, loggedIn)
+            }}>
                 <Router history={history}>
                     <HeaderUserData/>
                 </Router>

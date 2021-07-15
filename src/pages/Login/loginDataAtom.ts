@@ -5,16 +5,19 @@ export interface LoginState {
     password: string;
     rememberMe: boolean;
     incorrectLogin: boolean;
-    loggedIn: boolean;
 }
 
-export const loginAtom = atom<LoginState>({
+export const loginDataAtom = atom<LoginState>({
     key: 'loginState',
     default: {
         email: localStorage.getItem('trueck-email') ? localStorage.getItem('trueck-email')+'' : '',
         password: localStorage.getItem('trueck-password') ? localStorage.getItem('trueck-password')+'' : '',
         incorrectLogin: false,
-        rememberMe: localStorage.getItem('trueck-rememberMe') ? Boolean(localStorage.getItem('trueck-rememberMe')) : false,
-        loggedIn: false,
+        rememberMe: localStorage.getItem('trueck-rememberMe') ? Boolean(localStorage.getItem('trueck-rememberMe')) : false
     },
+});
+
+export const loginStatusAtom = atom<Boolean>({
+    key: 'loginStatusState',
+    default: false
 });

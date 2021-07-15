@@ -5,24 +5,10 @@ import {Router} from "react-router";
 import Header from "../../components/Header/Header";
 import Login from "./Login";
 import {signInWithEmailAndPassword} from "./loginAPI";
+import HeaderUserData from "../../components/HeaderUserData/HeaderUserData";
 
-jest.mock('./loginAPI', () => {
-    const signInWithGoogle = jest.fn();
-    const signInWithEmailAndPassword = jest.fn();
-    return {signInWithGoogle, signInWithEmailAndPassword};
-});
-
+jest.mock('./loginAPI');
 describe('Login integration test', () => {
-
-    const mockLoginComponent = (
-        <div>Mock name</div>
-    );
-
-    const userCredentials = {
-        user: {
-            displayName: 'Mock name'
-        }
-    };
 
     const history = createMemoryHistory();
 
@@ -30,7 +16,7 @@ describe('Login integration test', () => {
         return render(
             <RecoilRoot>
                 <Router history={history}>
-                    <Header loginComponent={mockLoginComponent}/>
+                    <Header loginComponent={<HeaderUserData />}/>
                     <Login/>
                 </Router>
             </RecoilRoot>
@@ -41,23 +27,28 @@ describe('Login integration test', () => {
         jest.restoreAllMocks();
     });
 
-    test('should render username in header after login', async () => {
+    test('should render logout button in header after login', async () => {
+
+        (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
+            return new Promise<void>((resolve) => {
+                resolve();
+            });
+        });
 
         renderComponent();
-        expect(screen.getByTestId('login-submitButton')).toBeInTheDocument();
 
-        // (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
-        //     return new Promise((resolve) => {
-        //         resolve(userCredentials);
-        //     });
-        // });
-        //
-        // renderComponent();
-        // fireEvent.click(screen.getByTestId('login-signInGoogle'));
-        // expect(signInWithEmailAndPassword).toBeCalledTimes(1);
-        // await waitFor(() => {
-        //     expect(screen.queryByText(/Mock name/i)).toBeInTheDocument();
-        // });
+        expect(screen.queryAllByTestId('header-logoutButton')).toHaveLength(0);
+
+        let mockEmail = 'mockemail@mock.com';
+        let mockPassword = 'mockPassword';
+        fireEvent.change(screen.getByTestId('login-emailField'), { target: { value: mockEmail } });
+        fireEvent.change(screen.getByTestId('login-passwordField'), { target: { value: mockPassword } });
+        fireEvent.click(screen.getByTestId('login-submitButton'));
+
+        await waitFor(() => {
+            expect(screen.getByTestId('header-logoutButton')).toBeInTheDocument();
+        });
+
     });
 
 });
