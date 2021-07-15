@@ -1,5 +1,6 @@
 import {rest} from 'msw';
 import {API_HOST_NAME} from "../api/url";
+import {User} from "../common/user/userAtom";
 
 interface LoginRequest {
     email: string;
@@ -24,5 +25,12 @@ export const handlers = [
             ctx.status(403),
         )
 
+    }),
+
+    rest.get<Request, User>(`${API_HOST_NAME}/loggedUser`, (req, res, ctx) => {
+        return res(
+            ctx.json({id: 7, name: 'UsuarioTest'}),
+            ctx.status(200),
+        )
     }),
 ]

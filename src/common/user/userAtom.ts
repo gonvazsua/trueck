@@ -1,4 +1,5 @@
-const {atom} = require("recoil");
+import {atom} from "recoil";
+
 
 export interface User {
     id: number;

@@ -1,6 +1,5 @@
 import {doFetch} from "../../api/doFetch";
-
-const loginURL = 'http://localhost:8080/login';
+import {API_HOST_NAME} from "../../api/url";
 
 export interface LoginResponse {
     token: string;
@@ -12,7 +11,7 @@ export const signInWithEmailAndPassword = async (email: string, password: string
         password: password
     };
     return new Promise<LoginResponse>((resolve, reject) => {
-        doFetch(loginURL, { method: 'POST', body: JSON.stringify(body) })
+        doFetch(`${API_HOST_NAME}/login`, { method: 'POST', body: JSON.stringify(body) })
             .then((response: Response) => {
                 if(!response.ok) {
                     reject('');
