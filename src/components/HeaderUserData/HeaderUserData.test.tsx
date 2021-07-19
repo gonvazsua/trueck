@@ -7,13 +7,15 @@ import {signInWithEmailAndPassword, signOut} from "../../pages/Login/loginAPI";
 import {RecoilRoot} from "recoil";
 import {loginDataAtom, LoginState, loginStatusAtom} from "../../pages/Login/loginDataAtom";
 import {User, userAtom} from "../../common/user/userAtom";
+import {getLoggedUser} from "../../api/user/userAPI";
 
 jest.mock('../../pages/Login/loginAPI');
+jest.mock('../../api/user/userAPI');
 
 describe('HeaderUserData', function () {
 
     const history = createMemoryHistory();
-    const user: User = {
+    const mockUser: User = {
         id: 1,
         name: 'Test name'
     }
@@ -39,12 +41,12 @@ describe('HeaderUserData', function () {
     };
 
     test('should render component', () => {
-        renderComponent('', '', false, false, user);
+        renderComponent('', '', false, false, mockUser);
         expect(screen.getByTestId('header-loginButton')).toBeInTheDocument();
     });
 
     test('should redirect to login when clicking on login button', () => {
-        renderComponent('', '', false, false, user);
+        renderComponent('', '', false, false, mockUser);
         const loginButton = screen.getByTestId('header-loginButton');
         expect(loginButton).toBeInTheDocument();
         loginButton.click();
@@ -61,13 +63,13 @@ describe('HeaderUserData', function () {
 
         let mockEmail = 'mockemail@mock.com';
         let mockPassword = 'mockPassword';
-        renderComponent(mockEmail, mockPassword, true, false, user);
+        renderComponent(mockEmail, mockPassword, true, false, mockUser);
 
         expect(signInWithEmailAndPassword).toHaveBeenCalledWith(mockEmail, mockPassword);
     });
 
     test('should render logout button when receiving the state loggedIn is true', () => {
-        renderComponent('', '', false, true, user);
+        renderComponent('', '', false, true, mockUser);
         const logoutButton = screen.getByTestId('header-logoutButton');
         expect(logoutButton).toBeInTheDocument();
     });
@@ -80,7 +82,7 @@ describe('HeaderUserData', function () {
             });
         });
 
-        renderComponent('', '', false, true, user);
+        renderComponent('', '', false, true, mockUser);
         const logoutButton = screen.getByTestId('header-logoutButton');
         fireEvent.click(logoutButton);
         expect(signOut).toBeCalledTimes(1);
@@ -92,7 +94,7 @@ describe('HeaderUserData', function () {
 
     test('should render user name when user is logged in', async () => {
 
-        renderComponent('', '', false, true, user);
+        renderComponent('', '', false, true, mockUser);
         await waitFor(() => {
             expect(screen.queryByText(/Test name/i)).toBeInTheDocument();
         });

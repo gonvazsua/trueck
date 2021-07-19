@@ -7,6 +7,7 @@ import {useRecoilState, useRecoilValue} from "recoil";
 import {loginDataAtom, loginStatusAtom} from "../../pages/Login/loginDataAtom";
 import {User, userAtom} from "../../common/user/userAtom";
 import Typography from "@material-ui/core/Typography";
+import {getLoggedUser} from "../../api/user/userAPI";
 
 const Cookies = require('js-cookie');
 
@@ -16,13 +17,14 @@ const HeaderUserData = (): JSX.Element => {
     const history = useHistory();
     const [loginState, setLoginState] = useRecoilState(loginDataAtom);
     const [loginStatusState, setLoginStatusState] = useRecoilState(loginStatusAtom);
-    const userState: User = useRecoilValue(userAtom);
+    const [userState, setUserState] = useRecoilState(userAtom);
 
     const doLogin = () => {
         signInWithEmailAndPassword(loginState.email, loginState.password)
             .then((loginResponse: LoginResponse) => {
                 Cookies.set('XSRF-TOKEN', loginResponse.token);
                 setLoginStatusState(true);
+                loadLoggedUser();
                 history.push('')
             })
             .catch(() => {
@@ -30,7 +32,14 @@ const HeaderUserData = (): JSX.Element => {
             });
     };
 
-    if (loginState.rememberMe) {
+    const loadLoggedUser = () => {
+        getLoggedUser()
+            .then((user: User) => {
+                setUserState(user);
+            });
+    };
+
+    if (loginState.rememberMe && !userState.id) {
         doLogin();
     }
 

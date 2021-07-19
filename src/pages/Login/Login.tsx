@@ -61,7 +61,6 @@ const Login = (): JSX.Element => {
     };
 
     const loadLoggedUser = () => {
-        console.log('Pasa2')
         getLoggedUser()
             .then((user: User) => {
                 setUserState(user);
