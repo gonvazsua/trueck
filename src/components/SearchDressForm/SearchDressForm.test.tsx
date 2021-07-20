@@ -3,7 +3,7 @@ import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import SearchDressForm from "./SearchDressForm";
 
-describe('LandingPage test', () => {
+describe('searchDressForm test', () => {
 
     const history = createMemoryHistory();
 

@@ -19,22 +19,24 @@ const Header = (props: HeaderProps): JSX.Element => {
     };
 
     return (
-        <AppBar position="static" color='default'>
+        <AppBar position="static" color='default' className={classes.appBar}>
             <Toolbar>
-                <Typography align='left' variant="h6" className={classes.title} data-testid='header-title'
+                <Typography align='left' variant="h5" className={classes.title} data-testid='header-title'
                             onClick={() => handleClickNavigation('')}>
                     Trueck
                 </Typography>
                 <div className={classes.grow}/>
-                <div className={classes.sectionDesktop}>
-                    <IconButton color='inherit' data-testid='header-wishes'>
-                        <Favorite/>
-                    </IconButton>
-                </div>
-                <div className={classes.sectionDesktop}>
-                    <IconButton color='inherit' data-testid='header-shoppingCart'>
-                        <ShoppingBasket/>
-                    </IconButton>
+                <div className={classes.actionBar}>
+                    <div className={classes.sectionDesktop}>
+                        <IconButton color='inherit' data-testid='header-wishes'>
+                            <Favorite/>
+                        </IconButton>
+                    </div>
+                    <div className={classes.sectionDesktop}>
+                        <IconButton color='inherit' data-testid='header-shoppingCart'>
+                            <ShoppingBasket/>
+                        </IconButton>
+                    </div>
                 </div>
                 {loginComponent}
             </Toolbar>
@@ -65,6 +67,14 @@ const useStyles = makeStyles((theme) => ({
         },
         textTransform: 'uppercase',
     },
+    appBar: {
+        backgroundColor: '#FFF',
+        boxShadow: 'none',
+    },
+    actionBar: {
+        display: 'flex',
+        marginRight: '3rem',
+    }
 }));
 
 export default Header;
