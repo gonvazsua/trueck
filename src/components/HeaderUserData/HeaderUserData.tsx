@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from "@material-ui/core/Button";
 import {useHistory} from "react-router-dom";
 import {makeStyles} from "@material-ui/core";
@@ -36,14 +36,16 @@ const HeaderUserData = (): JSX.Element => {
         }
     };
 
+    useEffect(() => {
+        if (loginState.rememberMe && !userState.id) {
+            doLogin();
+        }
+    }, [])
+
     const loadLoggedUser = async () => {
         const loggedUserResponse: AxiosResponse<User> = await getLoggedUser();
         setUserState(loggedUserResponse.data);
     };
-
-    if (loginState.rememberMe && !userState.id) {
-        doLogin();
-    }
 
     const handleLoginClick = () => {
         history.push('login');
@@ -57,6 +59,7 @@ const HeaderUserData = (): JSX.Element => {
             incorrectLogin: false,
         });
         setLoginStatusState(false);
+        localStorage.clear();
     };
 
     const handleLogoutClick = () => {
