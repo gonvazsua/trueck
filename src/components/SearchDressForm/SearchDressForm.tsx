@@ -10,7 +10,7 @@ const SearchDressForm = (): JSX.Element => {
     const classes = useStyles();
 
     return (
-        <Grid container>
+        <Grid container  data-testid='searchDressForm'>
             <Grid item xs={12}>
                 <Typography variant={'h4'} className={classes.searchFormTitle}>ENCUENTRA TU LOOK</Typography>
             </Grid>

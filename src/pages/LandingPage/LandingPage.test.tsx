@@ -1,7 +1,10 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import LandingPage from "./LandingPage";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
+import React from "react";
 
 describe('LandingPage test', () => {
 
@@ -10,7 +13,9 @@ describe('LandingPage test', () => {
     const renderComponent = () => {
         return render(
             <Router history={history}>
-                <LandingPage/>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <LandingPage/>
+                </MuiPickersUtilsProvider>
             </Router>
         )
     };

@@ -1,7 +1,10 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import React from 'react';
+import {render, screen} from "@testing-library/react";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import SearchDressForm from "./SearchDressForm";
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 
 describe('searchDressForm test', () => {
 
@@ -10,7 +13,9 @@ describe('searchDressForm test', () => {
     const renderComponent = () => {
         return render(
             <Router history={history}>
-                <SearchDressForm />
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <SearchDressForm/>
+                </MuiPickersUtilsProvider>
             </Router>
         )
     };

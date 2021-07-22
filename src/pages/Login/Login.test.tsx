@@ -1,13 +1,14 @@
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {RecoilRoot} from "recoil";
-import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
+import {LoginResponse, signInWithEmailAndPassword} from "../../api/login/loginAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import Login from "./Login";
 import {getLoggedUser} from "../../api/user/userAPI";
 import {User} from "../../common/user/userAtom";
+import {AxiosResponse} from "axios";
 
-jest.mock('./loginAPI');
+jest.mock('../../api/login/loginAPI');
 jest.mock('../../api/user/userAPI');
 describe('Login', () => {
 
@@ -65,8 +66,15 @@ describe('Login', () => {
     test('should show incorrect login message when the login process fails', async () => {
 
         (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
-            return new Promise<string>((resolve, reject) => {
-                reject('Login error');
+            return new Promise<AxiosResponse<LoginResponse>>((resolve, reject) => {
+                const axiosResponse: AxiosResponse = {
+                    data: null,
+                    status: 200,
+                    statusText: 'OK',
+                    config: {},
+                    headers: {},
+                };
+                reject(axiosResponse);
             });
         });
 

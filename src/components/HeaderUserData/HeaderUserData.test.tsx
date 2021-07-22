@@ -3,13 +3,13 @@ import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import HeaderUserData from "./HeaderUserData";
 import {createMemoryHistory} from 'history';
 import {Router} from "react-router";
-import {signInWithEmailAndPassword, signOut} from "../../pages/Login/loginAPI";
+import {LoginResponse, signInWithEmailAndPassword, signOut} from "../../api/login/loginAPI";
 import {RecoilRoot} from "recoil";
 import {loginDataAtom, LoginState, loginStatusAtom} from "../../pages/Login/loginDataAtom";
 import {User, userAtom} from "../../common/user/userAtom";
-import {getLoggedUser} from "../../api/user/userAPI";
+import {AxiosResponse} from "axios";
 
-jest.mock('../../pages/Login/loginAPI');
+jest.mock('../../api/login/loginAPI');
 jest.mock('../../api/user/userAPI');
 
 describe('HeaderUserData', function () {
@@ -55,15 +55,27 @@ describe('HeaderUserData', function () {
 
     test('should do the login when the rememberMe was clicked during login process', () => {
 
+        const defaultUser = {
+            id: 0,
+            name: ''
+        };
+
         (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
-            return new Promise<void>((resolve) => {
-                resolve();
+            return new Promise<AxiosResponse<LoginResponse>>((resolve) => {
+                const axiosResponse: AxiosResponse = {
+                    data: {token: 'mockToken'},
+                    status: 200,
+                    statusText: 'OK',
+                    config: {},
+                    headers: {},
+                };
+                resolve(axiosResponse);
             });
         });
 
         let mockEmail = 'mockemail@mock.com';
         let mockPassword = 'mockPassword';
-        renderComponent(mockEmail, mockPassword, true, false, mockUser);
+        renderComponent(mockEmail, mockPassword, true, false, defaultUser);
 
         expect(signInWithEmailAndPassword).toHaveBeenCalledWith(mockEmail, mockPassword);
     });

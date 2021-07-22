@@ -4,10 +4,11 @@ import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import Header from "../../components/Header/Header";
 import Login from "./Login";
-import {signInWithEmailAndPassword} from "./loginAPI";
+import {LoginResponse, signInWithEmailAndPassword} from "../../api/login/loginAPI";
 import HeaderUserData from "../../components/HeaderUserData/HeaderUserData";
+import {AxiosResponse} from "axios";
 
-jest.mock('./loginAPI');
+jest.mock('../../api/login/loginAPI');
 describe('Login integration test', () => {
 
     const history = createMemoryHistory();
@@ -30,8 +31,15 @@ describe('Login integration test', () => {
     test('should render logout button in header after login', async () => {
 
         (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
-            return new Promise<void>((resolve) => {
-                resolve();
+            return new Promise<AxiosResponse<LoginResponse>>((resolve) => {
+                const axiosResponse: AxiosResponse = {
+                    data: {token: 'mockToken'},
+                    status: 200,
+                    statusText: 'OK',
+                    config: {},
+                    headers: {},
+                };
+                resolve(axiosResponse);
             });
         });
 

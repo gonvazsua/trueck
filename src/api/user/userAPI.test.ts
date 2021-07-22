@@ -1,29 +1,24 @@
 import {User} from "../../common/user/userAtom";
-import {doFetch} from "../doFetch";
 import {getLoggedUser} from "./userAPI";
+import axios from "axios";
+import {API_HOST_NAME} from "../url";
 
-jest.mock('../doFetch');
+jest.mock('axios');
 describe('userAPI', () => {
 
-    test('should call to API to load user information', () => {
+    const mockUser: User = {
+        id: 1,
+        name: 'Test'
+    };
 
-        const mockUser: User = {
-            id: 1,
-            name: 'Test'
-        };
-        const url = 'http://localhost:8080/loggedUser';
+    test('should call to API to load user information', async () => {
 
-        (doFetch as jest.Mock).mockImplementation(() => {
-            return new Promise<User>((resolve) => {
-                resolve(mockUser);
-            })
-        });
+        (axios.get as jest.Mock).mockReturnValue(mockUser);
 
-        getLoggedUser().then((user: User) => {
-            expect(user).toEqual(mockUser);
-        });
+        const user = await getLoggedUser();
 
-        expect(doFetch).toBeCalledWith(url);
+        expect(axios.get).toBeCalledWith(`${API_HOST_NAME}/loggedUser`);
+        expect(user).toEqual(mockUser);
 
     });
 

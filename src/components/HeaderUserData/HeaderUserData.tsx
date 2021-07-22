@@ -2,12 +2,13 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import {useHistory} from "react-router-dom";
 import {makeStyles} from "@material-ui/core";
-import {LoginResponse, signInWithEmailAndPassword, signOut} from "../../pages/Login/loginAPI";
+import {LoginResponse, signInWithEmailAndPassword, signOut} from "../../api/login/loginAPI";
 import {useRecoilState} from "recoil";
 import {loginDataAtom, loginStatusAtom} from "../../pages/Login/loginDataAtom";
 import {User, userAtom} from "../../common/user/userAtom";
 import Typography from "@material-ui/core/Typography";
 import {getLoggedUser} from "../../api/user/userAPI";
+import {AxiosResponse} from "axios";
 
 const Cookies = require('js-cookie');
 
@@ -19,24 +20,25 @@ const HeaderUserData = (): JSX.Element => {
     const [loginStatusState, setLoginStatusState] = useRecoilState(loginStatusAtom);
     const [userState, setUserState] = useRecoilState(userAtom);
 
-    const doLogin = () => {
-        signInWithEmailAndPassword(loginState.email, loginState.password)
-            .then((loginResponse: LoginResponse) => {
-                Cookies.set('XSRF-TOKEN', loginResponse.token);
+    const doLogin = async () => {
+        try {
+            const loginResponse: AxiosResponse<LoginResponse> = await signInWithEmailAndPassword(loginState.email, loginState.password);
+            if(loginResponse.data) {
                 setLoginStatusState(true);
-                loadLoggedUser();
+                Cookies.set('XSRF-TOKEN', loginResponse.data.token);
+                await loadLoggedUser();
                 history.push('')
-            })
-            .catch(() => {
+            } else {
                 resetLoginState();
-            });
+            }
+        } catch (err) {
+            resetLoginState();
+        }
     };
 
-    const loadLoggedUser = () => {
-        getLoggedUser()
-            .then((user: User) => {
-                setUserState(user);
-            });
+    const loadLoggedUser = async () => {
+        const loggedUserResponse: AxiosResponse<User> = await getLoggedUser();
+        setUserState(loggedUserResponse.data);
     };
 
     if (loginState.rememberMe && !userState.id) {

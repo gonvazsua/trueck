@@ -11,11 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles, Snackbar} from "@material-ui/core";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {loginDataAtom, loginStatusAtom} from "./loginDataAtom";
-import {LoginResponse, signInWithEmailAndPassword} from "./loginAPI";
+import {LoginResponse, signInWithEmailAndPassword} from "../../api/login/loginAPI";
 import {useHistory} from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
 import {getLoggedUser} from "../../api/user/userAPI";
 import {User, userAtom} from "../../common/user/userAtom";
+import {AxiosResponse} from "axios";
 const Cookies = require('js-cookie');
 
 const Login = (): JSX.Element => {
@@ -34,18 +35,21 @@ const Login = (): JSX.Element => {
         setLoginState({...loginState, password: event.target.value});
     };
 
-    const handleOnSubmit = () => {
-        signInWithEmailAndPassword(loginState.email, loginState.password)
-            .then((loginResponse: LoginResponse) => {
+    const handleOnSubmit = async () => {
+        try {
+            const loginResponse: AxiosResponse<LoginResponse> = await signInWithEmailAndPassword(loginState.email, loginState.password);
+            if(loginResponse.data) {
                 setLoginStatusState(true);
-                Cookies.set('XSRF-TOKEN', loginResponse.token);
+                Cookies.set('XSRF-TOKEN', loginResponse.data.token);
                 storeLoginDataOnLocalStorage();
-                loadLoggedUser();
+                await loadLoggedUser();
                 history.push('')
-            })
-            .catch(() => {
+            } else {
                 setLoginState({...loginState, incorrectLogin: true});
-            });
+            }
+        } catch (err) {
+            setLoginState({...loginState, incorrectLogin: true});
+        }
     };
 
     const storeLoginDataOnLocalStorage = () => {
@@ -60,11 +64,9 @@ const Login = (): JSX.Element => {
         setLoginState({...loginState, rememberMe: event.target.checked});
     };
 
-    const loadLoggedUser = () => {
-        getLoggedUser()
-            .then((user: User) => {
-                setUserState(user);
-            });
+    const loadLoggedUser = async () => {
+        const loggedUserResponse: AxiosResponse<User> = await getLoggedUser();
+        setUserState(loggedUserResponse.data);
     };
 
     return (
