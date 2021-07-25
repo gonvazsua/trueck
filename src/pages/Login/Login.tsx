@@ -60,6 +60,10 @@ const Login = (): JSX.Element => {
         setUserState(loggedUserResponse.data);
     };
 
+    const handleOnSignUpClick = () => {
+        history.push('signUp');
+    };
+
     return (
         <Grid container spacing={3}>
             <Grid item lg={6}>
@@ -116,7 +120,7 @@ const Login = (): JSX.Element => {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link variant="body2" data-testid={'login-signUpLink'} onClick={() => handleOnSignUpClick()}>
                                     {"No tengo cuenta. Ir a registro"}
                                 </Link>
                             </Grid>

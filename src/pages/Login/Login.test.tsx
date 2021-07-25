@@ -128,4 +128,14 @@ describe('Login', () => {
 
     });
 
+    test('should redirect to signup when clicked in Register', async () => {
+        renderComponent();
+
+        act(() => {
+            fireEvent.click(screen.getByTestId('login-signUpLink'));
+        });
+
+        await waitFor(() => expect(history.location.pathname).toEqual('signUp'));
+    });
+
 });

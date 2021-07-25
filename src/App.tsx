@@ -12,6 +12,7 @@ import MomentUtils from "@date-io/moment";
 import {makeStyles} from "@material-ui/core";
 import Footer from "./components/Footer/Footer";
 import moment from "moment";
+import SignUp from "./pages/SignUp/SignUp";
 
 const App = (): JSX.Element => {
 
@@ -28,6 +29,9 @@ const App = (): JSX.Element => {
                         <Switch>
                             <Route exact path="/login">
                                 <Login/>
+                            </Route>
+                            <Route exact path="/signup">
+                                <SignUp />
                             </Route>
                             <Route exact path="/">
                                 <div className={classes.pageContainer}>
