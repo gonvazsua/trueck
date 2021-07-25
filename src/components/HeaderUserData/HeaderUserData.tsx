@@ -20,32 +20,33 @@ const HeaderUserData = (): JSX.Element => {
     const [loginStatusState, setLoginStatusState] = useRecoilState(loginStatusAtom);
     const [userState, setUserState] = useRecoilState(userAtom);
 
-    const doLogin = async () => {
-        try {
-            const loginResponse: AxiosResponse<LoginResponse> = await signInWithEmailAndPassword(loginState.email, loginState.password);
-            if(loginResponse.data) {
-                setLoginStatusState(true);
-                Cookies.set('XSRF-TOKEN', loginResponse.data.token);
-                await loadLoggedUser();
-                history.push('')
-            } else {
+    useEffect(() => {
+
+        const loadLoggedUser = async () => {
+            const loggedUserResponse: AxiosResponse<User> = await getLoggedUser();
+            setUserState(loggedUserResponse.data);
+        };
+
+        const doLogin = async () => {
+            try {
+                const loginResponse: AxiosResponse<LoginResponse> = await signInWithEmailAndPassword(loginState.email, loginState.password);
+                if(loginResponse.data) {
+                    setLoginStatusState(true);
+                    Cookies.set('XSRF-TOKEN', loginResponse.data.token);
+                    await loadLoggedUser();
+                    history.push('')
+                } else {
+                    resetLoginState();
+                }
+            } catch (err) {
                 resetLoginState();
             }
-        } catch (err) {
-            resetLoginState();
-        }
-    };
+        };
 
-    useEffect(() => {
         if (loginState.rememberMe && !userState.id) {
             doLogin();
         }
     }, [])
-
-    const loadLoggedUser = async () => {
-        const loggedUserResponse: AxiosResponse<User> = await getLoggedUser();
-        setUserState(loggedUserResponse.data);
-    };
 
     const handleLoginClick = () => {
         history.push('login');

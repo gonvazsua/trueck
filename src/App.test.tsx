@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import App from './App';
 import {RecoilRoot} from "recoil";
 
@@ -22,7 +22,7 @@ describe('App component', () => {
         renderComponent();
         const loginButton = screen.getByTestId('header-loginButton');
         expect(loginButton).toBeInTheDocument();
-        loginButton.click();
+        act(() => loginButton.click());
         expect(screen.getByTestId('login-title')).toBeInTheDocument();
     });
 

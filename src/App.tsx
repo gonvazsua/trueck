@@ -11,6 +11,7 @@ import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import {makeStyles} from "@material-ui/core";
 import Footer from "./components/Footer/Footer";
+import moment from "moment";
 
 const App = (): JSX.Element => {
 
@@ -19,7 +20,7 @@ const App = (): JSX.Element => {
 
     return (
         <div data-testid='app'>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
+            <MuiPickersUtilsProvider utils={MomentUtils} libInstance={moment}>
                 <BrowserRouter>
                     <Header loginComponent={headerUserData} data-testId='Header-Component'/>
                     <Container component="main">

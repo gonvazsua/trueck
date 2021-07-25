@@ -15,7 +15,7 @@ const DressGrid = (props: DressGridProps): JSX.Element => {
         <Grid container spacing={3}>
             {
                 dressList.map(dress => (
-                    <Grid item xs={12} xl={4} md={4}>
+                    <Grid item xs={12} xl={4} md={4} key={dress.id}>
                         <DressForGrid dress={dress} />
                     </Grid>
                 ))
