@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import {FormControl, InputLabel, makeStyles, MenuItem, Select, Slider} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import moment, {Moment} from "moment/moment";
+import moment from "moment/moment";
 import {MaterialUiPickersDate} from "@material-ui/pickers/typings/date";
 
 export interface SearchDressFormProps {

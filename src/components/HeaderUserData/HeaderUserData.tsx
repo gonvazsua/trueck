@@ -43,7 +43,7 @@ const HeaderUserData = (): JSX.Element => {
             }
         };
 
-        if (loginState.rememberMe && !userState.id) {
+        if (!userState.id) {
             doLogin();
         }
     }, [])
@@ -56,7 +56,6 @@ const HeaderUserData = (): JSX.Element => {
         setLoginState({
             email: '',
             password: '',
-            rememberMe: false,
             incorrectLogin: false,
         });
         setLoginStatusState(false);
