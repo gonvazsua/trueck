@@ -68,7 +68,7 @@ const Login = (): JSX.Element => {
                         <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5" data-testid='login-title'>
-                        Sign in
+                        Acceso
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
@@ -77,7 +77,7 @@ const Login = (): JSX.Element => {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Email"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -90,7 +90,7 @@ const Login = (): JSX.Element => {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -112,12 +112,12 @@ const Login = (): JSX.Element => {
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
-                                    Forgot password?
+                                    He olvidado mi contraseña
                                 </Link>
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    {"No tengo cuenta. Ir a registro"}
                                 </Link>
                             </Grid>
                         </Grid>
