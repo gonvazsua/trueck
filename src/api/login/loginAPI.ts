@@ -1,6 +1,5 @@
 import {API_HOST_NAME} from "../url";
 import axios, {AxiosResponse} from "axios";
-const Cookies = require('js-cookie');
 
 export interface LoginResponse {
     token: string;
@@ -11,12 +10,7 @@ export const signInWithEmailAndPassword = async (email: string, password: string
         email: email,
         password: password
     };
-    const config = {
-        headers: {
-            'XSRF-TOKEN': Cookies.set('XSRF-TOKEN'),
-        }
-    }
-    return await axios.post<LoginResponse>(`${API_HOST_NAME}/login`, body, config)
+    return await axios.post<LoginResponse>(`${API_HOST_NAME}/login`, body)
 };
 
 export const signOut = async () => {
@@ -24,3 +18,10 @@ export const signOut = async () => {
      resolve();
     });
 }
+
+export const signUp = async (fullName: string, username: string, email: string, password: string): Promise<AxiosResponse<void>> => {
+    const body = {
+        fullName, username, email, password
+    };
+    return await axios.post(`${API_HOST_NAME}/signUp`, body);
+};

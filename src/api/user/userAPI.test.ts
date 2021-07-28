@@ -17,7 +17,7 @@ describe('userAPI', () => {
 
         const user = await getLoggedUser();
 
-        expect(axios.get).toBeCalledWith(`${API_HOST_NAME}/loggedUser`);
+        expect(axios.get).toBeCalledWith(`${API_HOST_NAME}/loggedUser`, {"headers": {"XSRF-TOKEN": undefined}});
         expect(user).toEqual(mockUser);
 
     });
