@@ -176,7 +176,7 @@ const SignUp = (): JSX.Element => {
                     <Snackbar open={signUpSuccess}
                               data-testid={'signup-success'}>
                         <Alert severity="success" onClose={() => setSignUpSuccess(false)}>
-                            Se ha registrado correctamente. Ya puedes acceder desde la pantalla de Login
+                            Se ha registrado correctamente. Ya puedes acceder a tu cuenta desde la pantalla de Login
                         </Alert>
                     </Snackbar>
 
