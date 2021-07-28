@@ -145,7 +145,7 @@ const SignUp = (): JSX.Element => {
                             data-testid='signup-submitButton'
                             className={classes.submit}
                             id="login-submit-button"
-                            disabled={!fullName && !email && !username && !password && !repeatPassword}
+                            disabled={!fullName || !email || !username || !password || !repeatPassword}
                             onClick={() => handleOnClickSubmit()}
                         >
                             CREAR CUENTA
@@ -154,28 +154,28 @@ const SignUp = (): JSX.Element => {
 
                     <Snackbar open={passwordMismatch} autoHideDuration={3000}
                               data-testid={'signup-passwordMismatch'}>
-                        <Alert severity="error">
+                        <Alert severity="error" onClose={() => setSignUpError(false)}>
                             Las contraseñas introducidas no coinciden
                         </Alert>
                     </Snackbar>
 
                     <Snackbar open={usernameNotAvailable} autoHideDuration={3000}
                               data-testid={'signup-usernameNotAvailable'}>
-                        <Alert severity="error">
+                        <Alert severity="error" onClose={() => setUsernameNotAvailable(false)}>
                             El nombre de usuario seleccionado ya está en uso
                         </Alert>
                     </Snackbar>
 
                     <Snackbar open={signUpError} autoHideDuration={3000}
                               data-testid={'signup-error'}>
-                        <Alert severity="error">
+                        <Alert severity="error" onClose={() => setSignUpError(false)}>
                             Ha ocurrido un problema durante el proceso de registro. Por favor, inténtalo de nuevo
                         </Alert>
                     </Snackbar>
 
                     <Snackbar open={signUpSuccess}
                               data-testid={'signup-success'}>
-                        <Alert severity="success">
+                        <Alert severity="success" onClose={() => setSignUpSuccess(false)}>
                             Se ha registrado correctamente. Ya puedes acceder desde la pantalla de Login
                         </Alert>
                     </Snackbar>
