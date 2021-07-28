@@ -83,7 +83,7 @@ const HeaderUserData = (): JSX.Element => {
                     {userState.fullName}
                 </Typography>
                 <Button color="secondary" variant='contained' data-testid='header-logoutButton'
-                        name="loginButton" onClick={() => handleLogoutClick()}>Logout</Button>
+                        name="loginButton" onClick={() => handleLogoutClick()}>SALIR</Button>
             </div>
         );
     }

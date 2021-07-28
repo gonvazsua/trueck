@@ -26,7 +26,7 @@ const DressForGrid = (props: DressForGridProps): JSX.Element => {
                 <CardMedia
                     className={classes.media}
                     image={dress.picture}
-                    title="Contemplative Reptile"
+                    title={dress.description}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">

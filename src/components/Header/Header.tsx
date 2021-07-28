@@ -23,7 +23,7 @@ const Header = (props: HeaderProps): JSX.Element => {
             <Toolbar>
                 <Typography align='left' variant="h5" className={classes.title} data-testid='header-title'
                             onClick={() => handleClickNavigation('')}>
-                    Trueck
+                    Save the dress
                 </Typography>
                 <div className={classes.grow}/>
                 <div className={classes.actionBar}>

@@ -97,7 +97,7 @@ const SearchDressForm = (props: SearchDressFormProps): JSX.Element => {
                 </FormControl>
             </Grid>
             <Grid item xs={12}>
-                <Typography align={'left'} className={classes.mt3}>
+                <Typography align={'right'} className={classes.mt3}>
                     <Button variant="outlined" data-testid={'SearchDressForm-search'} size="large" onClick={() => handleClickSearch()}>BUSCAR</Button>
                 </Typography>
             </Grid>
