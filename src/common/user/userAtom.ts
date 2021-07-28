@@ -3,13 +3,17 @@ import {atom} from "recoil";
 
 export interface User {
     id: number;
-    name: string;
+    fullName: string;
+    email: string;
+    username: string;
 }
 
 export const userAtom = atom<User>({
     key: 'userState',
     default: {
         id: 0,
-        name: ''
+        fullName: '',
+        email: '',
+        username: '',
     },
 });

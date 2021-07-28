@@ -80,7 +80,7 @@ const HeaderUserData = (): JSX.Element => {
         return (
             <div className={classes.userInformation}>
                 <Typography variant="subtitle1" className={classes.title} data-testid='header-user-name'>
-                    {userState.name}
+                    {userState.fullName}
                 </Typography>
                 <Button color="secondary" variant='contained' data-testid='header-logoutButton'
                         name="loginButton" onClick={() => handleLogoutClick()}>Logout</Button>

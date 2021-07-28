@@ -21,14 +21,17 @@ const dressList: Dress[] = [
 ];
 
 const users: User[] = [
-    {id: 1, name: 'Test'}
+    {id: 1, fullName: 'Juan', username: 'juan', email: 'juan@gmail.com'},
+    {id: 1, fullName: 'Antonio', username: 'atonito', email: 'antonio@gmail.com'},
+    {id: 1, fullName: 'Francisco', username: 'paquito', email: 'paco@gmail.com'}
 ];
 
 export const handlers = [
 
     rest.post<LoginRequest, LoginResponse>(`${API_HOST_NAME}/login`, (req, res, ctx) => {
-        const { email, password } = req.body;
-        if (email === 'test@test.com' && password === 'test') {
+        const { email } = req.body;
+        const foundUsers = users.filter(u => u.email === email);
+        if (foundUsers.length > 0) {
             return res(
                 ctx.json({token: 'mockToken'}),
                 ctx.status(200),
@@ -40,7 +43,7 @@ export const handlers = [
 
     }),
 
-    rest.post<LoginRequest, LoginResponse>(`${API_HOST_NAME}/signUp`, (req, res, ctx) => {
+    rest.post<Request, Response>(`${API_HOST_NAME}/signUp`, (req, res, ctx) => {
         return res(
             ctx.status(200),
         )
@@ -48,14 +51,17 @@ export const handlers = [
 
     rest.get<Request, User>(`${API_HOST_NAME}/loggedUser`, (req, res, ctx) => {
         return res(
-            ctx.json({id: 7, name: 'UsuarioTest'}),
+            ctx.json(users[0]),
             ctx.status(200),
         )
     }),
 
     rest.get<Request, UserResponse>(`${API_HOST_NAME}/users`, (req, res, ctx) => {
+        const username = req.url.searchParams.get('username');
+        const userListResponse = users.filter(u => u.username === username);
+        console.log(userListResponse, username)
         const userResponse: UserResponse = {
-            users
+            users: userListResponse
         };
         return res(
             ctx.json(userResponse),
