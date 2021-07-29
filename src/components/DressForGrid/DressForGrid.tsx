@@ -23,7 +23,7 @@ const DressForGrid = (props: DressForGridProps): JSX.Element => {
     const {dress} = props;
 
     const handleDressDetailsClick = () => {
-        history.push('dress-details', dress);
+        history.push(`dress-details/${dress.id}`);
     };
 
     const getMainDressPictureUrl = () => {

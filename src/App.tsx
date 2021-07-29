@@ -34,7 +34,7 @@ const App = (): JSX.Element => {
                             <Route exact path="/signup">
                                 <SignUp />
                             </Route>
-                            <Route exact path="/dress-details">
+                            <Route exact path="/dress-details/:dressId">
                                 <div className={classes.pageContainer}>
                                     <DressDetailsPage />
                                 </div>

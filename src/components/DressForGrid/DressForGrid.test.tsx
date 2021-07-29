@@ -33,7 +33,7 @@ describe('DressForGrid test', () => {
             fireEvent.click(screen.getByTestId('dressForGrid-dressDetails-' + dress.id))
         });
 
-        await waitFor(() => expect(history.location.pathname).toEqual('dress-details'));
+        await waitFor(() => expect(history.location.pathname).toEqual(`dress-details/${dress.id}`));
 
     });
 
@@ -53,7 +53,7 @@ describe('DressForGrid test', () => {
             fireEvent.click(screen.getByTestId('dressForGrid-dressPicture-' + dress.id))
         });
 
-        await waitFor(() => expect(history.location.pathname).toEqual('dress-details'));
+        await waitFor(() => expect(history.location.pathname).toEqual(`dress-details/${dress.id}`));
 
     });
 

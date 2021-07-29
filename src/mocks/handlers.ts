@@ -75,4 +75,20 @@ export const handlers = [
             ctx.status(200),
         )
     }),
+
+    rest.get<Request, Dress>(`${API_HOST_NAME}/dresses/:dressId`, (req, res, ctx) => {
+        const { dressId } = req.params
+        const dressFiltered = dressList.filter(d => d.id === parseInt(dressId));
+        if(dressFiltered.length === 1) {
+            return res(
+                ctx.json(dressFiltered[0]),
+                ctx.status(200),
+            )
+        } else {
+            return res(
+                ctx.status(404)
+            )
+        }
+
+    }),
 ]

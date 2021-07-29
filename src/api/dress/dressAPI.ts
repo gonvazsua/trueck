@@ -23,3 +23,7 @@ export const getDresses = async (dateFrom: string, dateTo: string, dressType: st
     }
     return await axios.get(`${API_HOST_NAME}/dresses`, {params: parameters});
 };
+
+export const getDressById = async (dressId: number): Promise<AxiosResponse<Dress>> => {
+    return await axios.get(`${API_HOST_NAME}/dresses/${dressId}`);
+};
