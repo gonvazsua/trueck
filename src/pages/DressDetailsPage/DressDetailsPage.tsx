@@ -6,6 +6,7 @@ import {useRecoilState} from "recoil";
 import {dressDetailsAtom} from "./DressDetailsAtom";
 import {getDressById} from "../../api/dress/dressAPI";
 import Typography from "@material-ui/core/Typography";
+import DressDetails from "../../components/DressDetails/DressDetails";
 
 const DressDetailsPage = (): JSX.Element => {
 
@@ -33,10 +34,10 @@ const DressDetailsPage = (): JSX.Element => {
         return (
             <Grid container spacing={3} data-testid={'DressDetailsPage-dressDetails'}>
                 <Grid item lg={6}>
-                    <DressPicturesGallery />
+                    <DressPicturesGallery dressPictures={dress?.pictures}/>
                 </Grid>
                 <Grid item lg={6}>
-                    {/*<DressDetails />*/}
+                    <DressDetails />
                 </Grid>
             </Grid>
         );
