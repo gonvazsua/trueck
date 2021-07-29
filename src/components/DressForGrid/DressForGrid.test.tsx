@@ -4,7 +4,6 @@ import {Dress} from "../../api/dress/dressAPI";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import React from "react";
-import {Route} from "react-router-dom";
 
 describe('DressForGrid test', () => {
 
@@ -23,7 +22,9 @@ describe('DressForGrid test', () => {
             id: 1,
             availableFrom: new Date(),
             description: 'Amazona maxi vestido estampado selva con cinturon',
-            picture: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg',
+            pictures: [
+                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg'}
+            ],
             price: 152
         };
         renderComponent(dress);
@@ -41,7 +42,9 @@ describe('DressForGrid test', () => {
             id: 1,
             availableFrom: new Date(),
             description: 'Amazona maxi vestido estampado selva con cinturon',
-            picture: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg',
+            pictures: [
+                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg'}
+            ],
             price: 152
         };
         renderComponent(dress);
@@ -52,6 +55,26 @@ describe('DressForGrid test', () => {
 
         await waitFor(() => expect(history.location.pathname).toEqual('dress-details'));
 
+    });
+
+    test('should render main picture in the card', async () => {
+        const dress: Dress = {
+            id: 1,
+            availableFrom: new Date(),
+            description: 'Amazona maxi vestido estampado selva con cinturon',
+            pictures: [
+                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg'},
+                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main: true}
+            ],
+            price: 152
+        };
+        const r = renderComponent(dress);
+
+        const dressPicture = screen.getByTestId('dressForGrid-dressPicture-' + dress.id);
+
+        r.debug();
+
+        await waitFor(() => expect(dressPicture).toHaveAttribute('style', 'background-image: url(https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg);'));
     });
 
 });

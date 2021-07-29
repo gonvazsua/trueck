@@ -5,9 +5,14 @@ export interface Dress {
     id: number;
     description: string;
     availableFrom: Date;
-    picture: string;
+    pictures: DressPicture[];
     price: number;
 };
+
+export interface DressPicture {
+    url: string;
+    main?: boolean;
+}
 
 export const getDresses = async (dateFrom: string, dateTo: string, dressType: string, priceRange: number[]): Promise<AxiosResponse<Dress[]>> => {
     const parameters = {

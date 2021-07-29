@@ -14,10 +14,10 @@ interface LoginResponse {
 }
 
 const dressList: Dress[] = [
-    {id: 1, availableFrom: new Date(), description: 'Amazona maxi vestido estampado selva con cinturon', picture: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', price: 152},
-    {id: 2, availableFrom: new Date(), description: 'Florisa vestido largo vaporoso halter', picture: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-141-min-scaled.jpg', price: 147},
-    {id: 3, availableFrom: new Date(), description: 'Daleside vestido midi beige frunce cintura', picture: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', price: 87},
-    {id: 4, availableFrom: new Date(), description: 'Vestido tirantes midi rojo', picture: 'https://borow.es/wp-content/uploads/2021/04/Alice-Olicia-vestido-tirantes-midi-rojo-azul-1.jpeg', price: 108}
+    {id: 1, availableFrom: new Date(), description: 'Amazona maxi vestido estampado selva con cinturon', pictures: [{url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', main:true}], price: 152},
+    {id: 2, availableFrom: new Date(), description: 'Florisa vestido largo vaporoso halter', pictures: [{url:'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-141-min-scaled.jpg', main:true}], price: 147},
+    {id: 3, availableFrom: new Date(), description: 'Daleside vestido midi beige frunce cintura', pictures: [{url:'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main:true}], price: 87},
+    {id: 4, availableFrom: new Date(), description: 'Vestido tirantes midi rojo', pictures: [{url:'https://borow.es/wp-content/uploads/2021/04/Alice-Olicia-vestido-tirantes-midi-rojo-azul-1.jpeg', main:true}], price: 108}
 ];
 
 const users: User[] = [

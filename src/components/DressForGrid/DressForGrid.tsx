@@ -26,12 +26,21 @@ const DressForGrid = (props: DressForGridProps): JSX.Element => {
         history.push('dress-details', dress);
     };
 
+    const getMainDressPictureUrl = () => {
+        const urls: string[] = dress.pictures
+            .filter(picture => picture.main === true)
+            .map(picture => picture.url);
+        return urls.length === 0
+            ? dress.pictures[0].url
+            : urls[0];
+    };
+
     return (
         <Card data-testid={'dressForGrid-dress-' + dress.id}>
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image={dress.picture}
+                    image={getMainDressPictureUrl()}
                     title={dress.description}
                     data-testid={'dressForGrid-dressPicture-' + dress.id}
                     onClick={() => handleDressDetailsClick()}

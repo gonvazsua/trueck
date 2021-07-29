@@ -23,7 +23,7 @@ describe('Header', () => {
 
     test('should render the Header', () => {
         renderComponent();
-        expect(screen.getByTestId('header-title')).toHaveTextContent('Trueck');
+        expect(screen.getByTestId('header-title')).toHaveTextContent('Save the dress');
         expect(screen.getByTestId('header-wishes')).toBeInTheDocument();
         expect(screen.getByTestId('header-shoppingCart')).toBeInTheDocument();
     });
