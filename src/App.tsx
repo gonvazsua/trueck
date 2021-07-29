@@ -13,6 +13,7 @@ import {makeStyles} from "@material-ui/core";
 import Footer from "./components/Footer/Footer";
 import moment from "moment";
 import SignUp from "./pages/SignUp/SignUp";
+import DressDetailsPage from "./pages/DressDetailsPage/DressDetailsPage";
 
 const App = (): JSX.Element => {
 
@@ -32,6 +33,11 @@ const App = (): JSX.Element => {
                             </Route>
                             <Route exact path="/signup">
                                 <SignUp />
+                            </Route>
+                            <Route exact path="/dress-details">
+                                <div className={classes.pageContainer}>
+                                    <DressDetailsPage />
+                                </div>
                             </Route>
                             <Route exact path="/">
                                 <div className={classes.pageContainer}>

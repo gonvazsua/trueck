@@ -17,7 +17,9 @@ describe('HeaderUserData', function () {
     const history = createMemoryHistory();
     const mockUser: User = {
         id: 1,
-        name: 'Test name'
+        fullName: 'Test name',
+        username: 'test',
+        email: 'tst@test.com'
     }
 
     const renderComponent = (email: string, password: string, loggedIn: boolean, user: User) => {
@@ -54,9 +56,11 @@ describe('HeaderUserData', function () {
 
     test('should do the login when the rememberMe was clicked during login process', () => {
 
-        const defaultUser = {
+        const defaultUser: User = {
             id: 0,
-            name: ''
+            fullName: '',
+            email: '',
+            username: ''
         };
 
         (signInWithEmailAndPassword as jest.Mock).mockImplementation(() => {
