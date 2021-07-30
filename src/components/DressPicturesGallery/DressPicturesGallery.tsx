@@ -26,6 +26,10 @@ const DressPicturesGallery = (props: DressDetailsProps): JSX.Element => {
         }
     }, [dressPictures]);
 
+    const handlePictureClick = (selectedPicture: DressPicture) => {
+        setMainPicture(selectedPicture);
+    };
+
     return (
         <Grid container spacing={3}>
             <Grid item lg={12}>
@@ -40,7 +44,7 @@ const DressPicturesGallery = (props: DressDetailsProps): JSX.Element => {
                 <ImageList rowHeight={250} gap={1} className={classes.imageList}>
                     {dressPictures?.map((item) => (
                         <ImageListItem key={item.url}>
-                            <img src={item.url} alt={item.url} />
+                            <img src={item.url} alt={item.url} data-testid={'DressPicturesGallery-picture-' + item.name} onClick={() => handlePictureClick(item)}/>
                             <ImageListItemBar
                                 position="top"
                                 actionPosition="left"
