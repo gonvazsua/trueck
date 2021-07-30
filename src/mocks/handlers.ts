@@ -25,7 +25,8 @@ const dressList: Dress[] = [
             {url: 'https://borow.es/wp-content/uploads/2021/04/Alice-Olicia-vestido-tirantes-midi-rojo-azul-1.jpeg', main: false},
             {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', main: false}
             ],
-        price: 152
+        price: 152,
+        username: 'atonito'
     },
     {
         id: 2,
@@ -35,14 +36,16 @@ const dressList: Dress[] = [
             url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-141-min-scaled.jpg',
             main: true
         }],
-        price: 147
+        price: 147,
+        username: 'atonito'
     },
     {
         id: 3,
         availableFrom: new Date(),
         description: 'Daleside vestido midi beige frunce cintura',
         pictures: [{url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main: true}],
-        price: 87
+        price: 87,
+        username: 'atonito'
     },
     {
         id: 4,
@@ -52,7 +55,8 @@ const dressList: Dress[] = [
             url: 'https://borow.es/wp-content/uploads/2021/04/Alice-Olicia-vestido-tirantes-midi-rojo-azul-1.jpeg',
             main: true
         }],
-        price: 108
+        price: 108,
+        username: 'atonito'
     }
 ];
 

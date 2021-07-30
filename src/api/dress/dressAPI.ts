@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {API_HOST_NAME} from "../url";
+import {User} from "../../common/user/userAtom";
 
 export interface Dress {
     id: number;
@@ -7,6 +8,7 @@ export interface Dress {
     availableFrom: Date;
     pictures: DressPicture[];
     price: number;
+    username: string;
 };
 
 export interface DressPicture {
