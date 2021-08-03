@@ -11,6 +11,8 @@ import {
     Typography
 } from "@material-ui/core";
 import {useHistory} from "react-router-dom";
+import DressTags from "../DressTags/DressTags";
+import Grid from "@material-ui/core/Grid";
 
 export interface DressForGridProps {
     dress: Dress;
@@ -46,12 +48,19 @@ const DressForGrid = (props: DressForGridProps): JSX.Element => {
                     onClick={() => handleDressDetailsClick()}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {dress.price} €
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {dress.description}
-                    </Typography>
+                    <Grid item xs={12} xl={12} md={12}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {dress.price} €
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} xl={12} md={12}>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {dress.description}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} xl={12} md={12}>
+                        <DressTags tags={dress.tags} />
+                    </Grid>
                 </CardContent>
             </CardActionArea>
             <CardActions>

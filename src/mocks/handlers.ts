@@ -26,7 +26,8 @@ const dressList: Dress[] = [
             {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', main: false}
             ],
         price: 152,
-        username: 'atonito'
+        username: 'atonito',
+        tags: ['Vestido largo', 'Vestido noche']
     },
     {
         id: 2,
@@ -37,7 +38,8 @@ const dressList: Dress[] = [
             main: true
         }],
         price: 147,
-        username: 'atonito'
+        username: 'atonito',
+        tags: ['Vestido largo', 'Vestido noche']
     },
     {
         id: 3,
@@ -45,7 +47,8 @@ const dressList: Dress[] = [
         description: 'Daleside vestido midi beige frunce cintura',
         pictures: [{url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main: true}],
         price: 87,
-        username: 'atonito'
+        username: 'atonito',
+        tags: ['Vestido largo', 'Vestido noche']
     },
     {
         id: 4,
@@ -56,7 +59,8 @@ const dressList: Dress[] = [
             main: true
         }],
         price: 108,
-        username: 'atonito'
+        username: 'atonito',
+        tags: ['Vestido largo', 'Vestido noche']
     }
 ];
 
