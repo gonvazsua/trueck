@@ -20,6 +20,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <Typography variant={'h5'} className={classes.owner}>
                     Look de @{dress.username}
                 </Typography>
+                <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
                 <Typography variant={'body1'}>
@@ -28,7 +29,12 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
             </Grid>
             <Grid item lg={12}>
                 <Typography variant={'body1'}>
-                    Precio {dress.price}€
+                    PRECIO {dress.price}€
+                </Typography>
+            </Grid>
+            <Grid item lg={12}>
+                <Typography variant={'body1'}>
+                    Talla {dress.size}
                 </Typography>
             </Grid>
             <Grid item lg={12}>
@@ -41,6 +47,15 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
 const useStyles = makeStyles((theme) => ({
     owner: {
         textTransform: 'uppercase',
+        fontWeight: 'bold'
+    },
+    separator: {
+        color: '#DEDEDE',
+        borderTopColor: '#DEDEDE',
+        borderRightColor: '#DEDEDE',
+        borderBottomColor: '#DEDEDE',
+        borderLeftColor: '#DEDEDE',
+        backgroundColor: '#DEDEDE',
     }
 }));
 

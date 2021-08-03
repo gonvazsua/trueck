@@ -9,6 +9,7 @@ export interface Dress {
     price: number;
     username: string;
     tags: string[];
+    size: string;
 };
 
 export interface DressPicture {

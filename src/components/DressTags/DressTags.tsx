@@ -12,7 +12,7 @@ const DressTags = (props: DressTagsProps): JSX.Element => {
 
     return (
         <div>
-        {
+        {tags &&
             tags.map(tag => (
                 <Chip label={tag} color={'secondary'} className={classes.tag} key={tag}/>
             ))

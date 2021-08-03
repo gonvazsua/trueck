@@ -27,7 +27,8 @@ const dressList: Dress[] = [
             ],
         price: 152,
         username: 'atonito',
-        tags: ['Vestido largo', 'Vestido noche']
+        tags: ['Vestido largo', 'Vestido noche'],
+        size: 'M'
     },
     {
         id: 2,
@@ -39,7 +40,8 @@ const dressList: Dress[] = [
         }],
         price: 147,
         username: 'atonito',
-        tags: ['Vestido largo', 'Vestido noche']
+        tags: ['Vestido largo', 'Vestido noche'],
+        size: 'L'
     },
     {
         id: 3,
@@ -48,7 +50,8 @@ const dressList: Dress[] = [
         pictures: [{url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main: true}],
         price: 87,
         username: 'atonito',
-        tags: ['Vestido largo', 'Vestido noche']
+        tags: ['Vestido largo', 'Vestido noche'],
+        size: 'S'
     },
     {
         id: 4,
@@ -60,7 +63,8 @@ const dressList: Dress[] = [
         }],
         price: 108,
         username: 'atonito',
-        tags: ['Vestido largo', 'Vestido noche']
+        tags: ['Vestido largo', 'Vestido noche'],
+        size: 'M'
     }
 ];
 
