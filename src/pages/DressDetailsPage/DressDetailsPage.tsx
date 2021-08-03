@@ -32,12 +32,14 @@ const DressDetailsPage = (): JSX.Element => {
 
     const renderDressDetails = (): JSX.Element => {
         return (
-            <Grid container spacing={3} data-testid={'DressDetailsPage-dressDetails'}>
+            <Grid container spacing={10} data-testid={'DressDetailsPage-dressDetails'}>
                 <Grid item lg={6}>
                     <DressPicturesGallery dressPictures={dress?.pictures}/>
                 </Grid>
                 <Grid item lg={6}>
-                    <DressDetails />
+                    {dress &&
+                        <DressDetails dress={dress}/>
+                    }
                 </Grid>
             </Grid>
         );
