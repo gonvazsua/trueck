@@ -5,6 +5,7 @@ import {Dress} from "../../api/dress/dressAPI";
 import DressTags from "../DressTags/DressTags";
 import {makeStyles} from "@material-ui/core";
 import {Checkroom} from "@material-ui/icons";
+import SizeSelector from "../SizeSelector/SizeSelector";
 
 export interface DressDetailsProps {
     dress: Dress;
@@ -29,10 +30,10 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 </Typography>
             </Grid>
             <Grid item lg={12}>
-                <Typography variant={'body1'} className={classes.size}>
-                    <Checkroom />
-                    Talla {dress.size}
+                <Typography variant={'subtitle1'}>
+                    TALLA
                 </Typography>
+                <SizeSelector selectedSize={dress.size} />
             </Grid>
             <Grid item lg={12}>
                 <Typography variant={'subtitle1'}>
