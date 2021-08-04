@@ -4,8 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import {Dress} from "../../api/dress/dressAPI";
 import DressTags from "../DressTags/DressTags";
 import {makeStyles} from "@material-ui/core";
-import {Checkroom} from "@material-ui/icons";
 import SizeSelector from "../SizeSelector/SizeSelector";
+import DressAvailabilityCalendar from "../DressAvailabilityCalendar/DressAvailabilityCalendar";
 
 export interface DressDetailsProps {
     dress: Dress;
@@ -43,6 +43,13 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
             <Grid item lg={12}>
                 <DressTags tags={dress.tags} />
             </Grid>
+            <Grid item lg={12}>
+                <Typography variant={'subtitle1'}>
+                    FECHAS NO DISPONIBLES
+                </Typography>
+                <DressAvailabilityCalendar blockingDates={dress.blockingDates}/>
+            </Grid>
+
         </Grid>
     );
 };

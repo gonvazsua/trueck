@@ -28,7 +28,8 @@ const dressList: Dress[] = [
         price: 152,
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
-        size: 'M'
+        size: 'M',
+        blockingDates: [new Date(), new Date()]
     },
     {
         id: 2,
@@ -41,7 +42,8 @@ const dressList: Dress[] = [
         price: 147,
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
-        size: 'L'
+        size: 'L',
+        blockingDates: [new Date(), new Date()]
     },
     {
         id: 3,
@@ -51,7 +53,8 @@ const dressList: Dress[] = [
         price: 87,
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
-        size: 'S'
+        size: 'S',
+        blockingDates: [new Date(), new Date()]
     },
     {
         id: 4,
@@ -64,7 +67,8 @@ const dressList: Dress[] = [
         price: 108,
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
-        size: 'M'
+        size: 'M',
+        blockingDates: [new Date(), new Date()]
     }
 ];
 

@@ -10,6 +10,7 @@ export interface Dress {
     username: string;
     tags: string[];
     size: string;
+    blockingDates: Date[];
 };
 
 export interface DressPicture {
