@@ -1,8 +1,10 @@
 import React from 'react';
-import {AppBar, IconButton, makeStyles, Toolbar} from "@material-ui/core";
+import {AppBar, Badge, IconButton, makeStyles, Toolbar} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import {useHistory} from "react-router-dom";
 import {Favorite, ShoppingBasket} from "@material-ui/icons";
+import {useRecoilValue} from "recoil";
+import {wishListAtom} from "../../common/wishList/wishListAtom";
 
 interface HeaderProps {
     loginComponent: React.ReactNode;
@@ -12,7 +14,8 @@ const Header = (props: HeaderProps): JSX.Element => {
 
     const classes = useStyles();
     const history = useHistory();
-    const { loginComponent } = props;
+    const {loginComponent} = props;
+    const wishList = useRecoilValue(wishListAtom);
 
     const handleClickNavigation = (path: string) => {
         history.push(path);
@@ -28,8 +31,10 @@ const Header = (props: HeaderProps): JSX.Element => {
                 <div className={classes.grow}/>
                 <div className={classes.actionBar}>
                     <div className={classes.sectionDesktop}>
-                        <IconButton color='inherit' data-testid='header-wishes'>
-                            <Favorite/>
+                        <IconButton color='inherit'>
+                            <Badge badgeContent={wishList.length} color="secondary" data-testid='header-wishes'>
+                                <Favorite/>
+                            </Badge>
                         </IconButton>
                     </div>
                     <div className={classes.sectionDesktop}>

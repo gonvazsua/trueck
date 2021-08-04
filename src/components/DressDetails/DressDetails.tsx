@@ -7,7 +7,9 @@ import {makeStyles} from "@material-ui/core";
 import SizeSelector from "../SizeSelector/SizeSelector";
 import DressAvailabilityCalendar from "../DressAvailabilityCalendar/DressAvailabilityCalendar";
 import Button from "@material-ui/core/Button";
-import {ContactMail, Favorite} from "@material-ui/icons";
+import {ContactMail, Favorite, ShoppingBasket} from "@material-ui/icons";
+import {useRecoilState, useSetRecoilState} from "recoil";
+import {wishListAtom} from "../../common/wishList/wishListAtom";
 
 export interface DressDetailsProps {
     dress: Dress;
@@ -17,6 +19,13 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
 
     const { dress } = props;
     const classes = useStyles();
+    const [wishList, setWishList] = useRecoilState(wishListAtom);
+
+    const handleOnClickAddToWishList = () => {
+        const newWishList = wishList;
+        newWishList.push(dress);
+        setWishList(newWishList);
+    };
 
     return (
         <Grid container spacing={3}>
@@ -27,8 +36,11 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
-                <Typography variant={'h6'} color={'secondary'}>
-                    {dress.price} EUR
+                <Typography variant={'subtitle1'} className={classes.price}>
+                    PRECIO ORIGINAL: <span className={classes.labeled}>{dress.price} EUR</span>
+                </Typography>
+                <Typography variant={'subtitle1'} className={classes.price}>
+                    PRECIO ALQUILER: {dress.price} EUR
                 </Typography>
             </Grid>
             <Grid item lg={12}>
@@ -63,10 +75,19 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
-                <Button variant={'contained'} size={'large'} disableElevation startIcon={<ContactMail />} fullWidth>
-                    CONTACTAR CON EL USUARIO
+                <Button variant={'contained'} size={'large'} disableElevation startIcon={<ShoppingBasket />} fullWidth>
+                    LO QUIERO
                 </Button>
-                <Button variant={'outlined'} size={'large'} disableElevation startIcon={<Favorite />} fullWidth className={classes.actionButtons}>
+                <Button
+                    variant={'outlined'}
+                    size={'large'}
+                    disableElevation
+                    startIcon={<Favorite />}
+                    fullWidth
+                    className={classes.actionButtons}
+                    data-testid={'DressDetails-addToWishListButton'}
+                    onClick={() => handleOnClickAddToWishList()}
+                >
                     AÑADIR A LA LISTA DE DESEOS
                 </Button>
             </Grid>
@@ -99,7 +120,13 @@ const useStyles = makeStyles((theme) => ({
     },
     actionButtons: {
         marginTop: '0.5rem',
-    }
+    },
+    price: {
+        color: '#000'
+    },
+    labeled: {
+        textDecoration: 'line-through'
+    },
 }));
 
 export default DressDetails;
