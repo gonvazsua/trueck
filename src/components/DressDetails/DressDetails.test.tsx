@@ -26,6 +26,7 @@ describe('DressDetails test', () => {
                 main: true
             }],
             price: 108,
+            originalPrice: 205,
             username: 'atonito',
             tags: ['Vestido largo', 'Vestido noche'],
             size: 'M',

@@ -7,8 +7,8 @@ import {makeStyles} from "@material-ui/core";
 import SizeSelector from "../SizeSelector/SizeSelector";
 import DressAvailabilityCalendar from "../DressAvailabilityCalendar/DressAvailabilityCalendar";
 import Button from "@material-ui/core/Button";
-import {ContactMail, Favorite, ShoppingBasket} from "@material-ui/icons";
-import {useRecoilState, useSetRecoilState} from "recoil";
+import {Favorite, ShoppingBasket} from "@material-ui/icons";
+import {useRecoilState} from "recoil";
 import {wishListAtom} from "../../common/wishList/wishListAtom";
 
 export interface DressDetailsProps {
@@ -17,7 +17,7 @@ export interface DressDetailsProps {
 
 const DressDetails = (props: DressDetailsProps): JSX.Element => {
 
-    const { dress } = props;
+    const {dress} = props;
     const classes = useStyles();
     const [wishList, setWishList] = useRecoilState(wishListAtom);
 
@@ -37,7 +37,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
             </Grid>
             <Grid item lg={12}>
                 <Typography variant={'subtitle1'} className={classes.price}>
-                    PRECIO ORIGINAL: <span className={classes.labeled}>{dress.price} EUR</span>
+                    PRECIO ORIGINAL: <span className={classes.labeled}>{dress.originalPrice} EUR</span>
                 </Typography>
                 <Typography variant={'subtitle1'} className={classes.price}>
                     PRECIO ALQUILER: {dress.price} EUR
@@ -50,7 +50,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                     </Typography>
                 </Grid>
                 <Grid item lg={11}>
-                    <SizeSelector selectedSize={dress.size} />
+                    <SizeSelector selectedSize={dress.size}/>
                 </Grid>
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
@@ -64,7 +64,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <Typography variant={'subtitle1'}>
                     CATEGORIAS
                 </Typography>
-                <DressTags tags={dress.tags} />
+                <DressTags tags={dress.tags}/>
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
@@ -75,14 +75,14 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
-                <Button variant={'contained'} size={'large'} disableElevation startIcon={<ShoppingBasket />} fullWidth>
+                <Button variant={'contained'} size={'large'} disableElevation startIcon={<ShoppingBasket/>} fullWidth>
                     LO QUIERO
                 </Button>
                 <Button
                     variant={'outlined'}
                     size={'large'}
                     disableElevation
-                    startIcon={<Favorite />}
+                    startIcon={<Favorite/>}
                     fullWidth
                     className={classes.actionButtons}
                     data-testid={'DressDetails-addToWishListButton'}

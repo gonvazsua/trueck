@@ -7,6 +7,7 @@ export interface Dress {
     availableFrom: Date;
     pictures: DressPicture[];
     price: number;
+    originalPrice: number;
     username: string;
     tags: string[];
     size: string;
