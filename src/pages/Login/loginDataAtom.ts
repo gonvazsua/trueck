@@ -1,4 +1,7 @@
 import {atom} from "recoil";
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 export interface LoginState {
     email: string;
@@ -9,10 +12,11 @@ export interface LoginState {
 export const loginDataAtom = atom<LoginState>({
     key: 'loginState',
     default: {
-        email: localStorage.getItem('trueck-email') ? localStorage.getItem('trueck-email')+'' : '',
-        password: localStorage.getItem('trueck-password') ? localStorage.getItem('trueck-password')+'' : '',
+        email: '',
+        password: '',
         incorrectLogin: false,
     },
+    effects_UNSTABLE: [persistAtom],
 });
 
 export const loginStatusAtom = atom<Boolean>({
