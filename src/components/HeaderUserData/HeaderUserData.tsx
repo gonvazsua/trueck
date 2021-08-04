@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Button from "@material-ui/core/Button";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 import {makeStyles} from "@material-ui/core";
 import {LoginResponse, signInWithEmailAndPassword, signOut} from "../../api/login/loginAPI";
 import {useRecoilState} from "recoil";
@@ -43,7 +43,7 @@ const HeaderUserData = (): JSX.Element => {
             }
         };
 
-        if (!userState.id) {
+        if (loginStatusState) {
             doLogin();
         }
     }, [])
@@ -71,8 +71,10 @@ const HeaderUserData = (): JSX.Element => {
 
     const renderGoToLoginButton = () => {
         return (
-            <Button color="inherit" data-testid='header-loginButton' name="loginButton"
-                    onClick={handleLoginClick}>Login</Button>
+            <Link to="/login" className={classes.loginButton}>
+                <Button color="inherit" data-testid='header-loginButton' name="loginButton"
+                            onClick={handleLoginClick}>Login</Button>
+            </Link>
         )
     };
 
@@ -101,6 +103,10 @@ const useStyles = makeStyles(() => ({
     },
     userInformation: {
         display: 'flex',
+    },
+    loginButton: {
+        textDecoration: 'none',
+        color: '#000'
     },
 }));
 

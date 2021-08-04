@@ -21,5 +21,6 @@ export const loginDataAtom = atom<LoginState>({
 
 export const loginStatusAtom = atom<Boolean>({
     key: 'loginStatusState',
-    default: false
+    default: false,
+    effects_UNSTABLE: [persistAtom],
 });
