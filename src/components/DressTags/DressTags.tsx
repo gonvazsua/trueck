@@ -7,16 +7,16 @@ export interface DressTagsProps {
 
 const DressTags = (props: DressTagsProps): JSX.Element => {
 
-    const { tags } = props;
+    const {tags} = props;
     const classes = useStyles();
 
     return (
-        <div>
-        {tags &&
+        <div className={classes.center}>
+            {tags &&
             tags.map(tag => (
                 <Chip label={tag} color={'secondary'} className={classes.tag} key={tag}/>
             ))
-        }
+            }
         </div>
     )
 };
@@ -29,4 +29,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '1rem',
         textTransform: 'uppercase'
     },
+    center: {
+        textAlign: 'center'
+    }
 }));

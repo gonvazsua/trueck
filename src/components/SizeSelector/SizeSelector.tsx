@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center'
     },
     sizeSelector: {
-        marginTop: '1rem'
+        marginTop: '1rem',
+        marginBottom: '1rem'
     },
 }));
 

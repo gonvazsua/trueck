@@ -13,7 +13,7 @@ const DressAvailabilityCalendar = (props: DressAvailabilityCalendarProps): JSX.E
     const yesterday = moment(new Date()).subtract(1, 'days').toDate();
 
     return (
-        <div>
+        <div className={classes.center}>
             {blockingDates &&
                 blockingDates
                     .map(date => moment(date))
@@ -34,4 +34,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '0.5rem',
         marginTop: '1rem',
     },
+    center: {
+        textAlign: 'center'
+    }
 }));

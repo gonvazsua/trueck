@@ -3,6 +3,7 @@ import {API_HOST_NAME} from "../api/url";
 import {User} from "../common/user/userAtom";
 import {Dress} from "../api/dress/dressAPI";
 import {UserResponse} from "../api/user/userAPI";
+import moment from "moment/moment";
 
 interface LoginRequest {
     email: string;
@@ -12,6 +13,8 @@ interface LoginRequest {
 interface LoginResponse {
     token: string;
 }
+
+const tomorrow = moment(new Date()).add(1, 'days').toDate();
 
 const dressList: Dress[] = [
     {
@@ -29,7 +32,7 @@ const dressList: Dress[] = [
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
         size: 'M',
-        blockingDates: [new Date(), new Date()]
+        blockingDates: [new Date(), tomorrow]
     },
     {
         id: 2,
@@ -43,7 +46,7 @@ const dressList: Dress[] = [
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
         size: 'L',
-        blockingDates: [new Date(), new Date()]
+        blockingDates: [new Date(), tomorrow]
     },
     {
         id: 3,
@@ -54,7 +57,7 @@ const dressList: Dress[] = [
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
         size: 'S',
-        blockingDates: [new Date(), new Date()]
+        blockingDates: [new Date(), tomorrow]
     },
     {
         id: 4,
@@ -68,7 +71,7 @@ const dressList: Dress[] = [
         username: 'atonito',
         tags: ['Vestido largo', 'Vestido noche'],
         size: 'M',
-        blockingDates: [new Date(), new Date()]
+        blockingDates: [new Date(), tomorrow]
     }
 ];
 
