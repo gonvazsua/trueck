@@ -40,7 +40,7 @@ const Header = (props: HeaderProps): JSX.Element => {
                         </IconButton>
                     </div>
                     <div className={classes.sectionDesktop}>
-                        <IconButton color='inherit'>
+                        <IconButton color='inherit' data-testid='header-shoppingCartButton' onClick={() => handleClickNavigation('/shopping-cart')}>
                             <Badge badgeContent={shoppingCart.length} color="secondary" data-testid='header-shoppingCart'>
                                 <ShoppingBasket/>
                             </Badge>

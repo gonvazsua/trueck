@@ -1,4 +1,4 @@
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import Header from "./Header";
@@ -62,15 +62,26 @@ describe('Header', () => {
 
     test('should redirect to the root path when clicking in title', () => {
         renderComponent();
-        const title = screen.getByTestId('header-title');
-        fireEvent.click(title);
-        expect(history.location.pathname).toEqual('/')
+        act(() => {
+            const title = screen.getByTestId('header-title');
+            fireEvent.click(title);
+        });
+        expect(history.location.pathname).toEqual('/');
     });
 
     test('should render amount of elements in wish list', async () => {
         renderComponent();
 
         await waitFor(() => expect(screen.getByTestId('header-wishes')).toHaveTextContent('1'));
+    });
+
+    test('should navigate to shopping cart page when clicking on cart icon', async () => {
+        renderComponent();
+        act(() => {
+            const title = screen.getByTestId('header-shoppingCartButton');
+            fireEvent.click(title);
+        });
+        expect(history.location.pathname).toEqual('/shopping-cart')
     });
 
 });
