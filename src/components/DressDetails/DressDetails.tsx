@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import {Favorite, ShoppingBasket} from "@material-ui/icons";
 import {useRecoilState} from "recoil";
 import {wishListAtom} from "../../common/wishList/wishListAtom";
+import {shoppingCartAtom} from "../../common/shoppingCart/shoppingCartAtom";
 
 export interface DressDetailsProps {
     dress: Dress;
@@ -20,9 +21,14 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
     const {dress} = props;
     const classes = useStyles();
     const [wishList, setWishList] = useRecoilState(wishListAtom);
+    const [shoppingCart, setShoppingCart] = useRecoilState(shoppingCartAtom);
 
     const handleOnClickAddToWishList = () => {
         setWishList([...wishList, dress]);
+    };
+
+    const handleOnClickAddToShoppingCart = () => {
+        setShoppingCart([...shoppingCart, dress]);
     };
 
     return (
@@ -73,7 +79,15 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
-                <Button variant={'contained'} size={'large'} disableElevation startIcon={<ShoppingBasket/>} fullWidth>
+                <Button
+                    variant={'contained'}
+                    size={'large'}
+                    disableElevation
+                    startIcon={<ShoppingBasket/>}
+                    fullWidth
+                    data-testid={'DressDetails-addToShoppingCartButton'}
+                    onClick={() => handleOnClickAddToShoppingCart()}
+                >
                     LO QUIERO
                 </Button>
                 <Button

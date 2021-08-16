@@ -43,4 +43,32 @@ describe('DressDetails test', () => {
 
     });
 
+    test('should adds dress to shopping cart', async () => {
+
+        const dress = {
+            id: 4,
+            availableFrom: new Date(),
+            description: 'Vestido tirantes midi rojo',
+            pictures: [{
+                url: 'test',
+                main: true
+            }],
+            price: 108,
+            originalPrice: 205,
+            username: 'atonito',
+            tags: ['Vestido largo', 'Vestido noche'],
+            size: 'M',
+            blockingDates: [new Date()]
+        }
+
+        renderComponent(dress);
+
+        act(() => {
+            fireEvent.click(screen.getByTestId('DressDetails-addToShoppingCartButton'));
+        });
+
+        await waitFor(() => expect(screen.getByTestId('header-shoppingCart')).toHaveTextContent('1'));
+
+    });
+
 });
