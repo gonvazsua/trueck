@@ -23,6 +23,7 @@ describe('Header', () => {
                 main: true
             }],
             price: 108,
+            originalPrice: 200,
             username: 'atonito',
             tags: ['Vestido largo', 'Vestido noche'],
             size: 'M',

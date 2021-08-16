@@ -22,9 +22,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
     const [wishList, setWishList] = useRecoilState(wishListAtom);
 
     const handleOnClickAddToWishList = () => {
-        const newWishList = wishList;
-        newWishList.push(dress);
-        setWishList(newWishList);
+        setWishList([...wishList, dress]);
     };
 
     return (
