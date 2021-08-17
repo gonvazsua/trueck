@@ -27,7 +27,6 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
         const wishListDress = wishList.find(wishListDress => wishListDress.id === dress.id);
         if(!wishListDress) {
             setWishList([...wishList, dress]);
-            console.log('Added: ', wishList)
         }
     };
 

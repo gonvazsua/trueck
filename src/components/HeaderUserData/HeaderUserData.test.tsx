@@ -51,7 +51,7 @@ describe('HeaderUserData', function () {
         const loginButton = screen.getByTestId('header-loginButton');
         expect(loginButton).toBeInTheDocument();
         loginButton.click();
-        expect(history.location.pathname).toEqual('login');
+        expect(history.location.pathname).toEqual('/login');
     });
 
     test('should do the login when the rememberMe was clicked during login process', () => {

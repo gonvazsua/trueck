@@ -14,6 +14,7 @@ import Footer from "./components/Footer/Footer";
 import moment from "moment";
 import SignUp from "./pages/SignUp/SignUp";
 import DressDetailsPage from "./pages/DressDetailsPage/DressDetailsPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage/ShoppingCartPage";
 
 const App = (): JSX.Element => {
 
@@ -40,9 +41,14 @@ const App = (): JSX.Element => {
                                         <DressDetailsPage/>
                                     </div>
                                 </Route>
+                                <Route exact path="/shopping-cart">
+                                    <div className={classes.pageContainer}>
+                                        <ShoppingCartPage />
+                                    </div>
+                                </Route>
                                 <Route exact path="/">
                                     <div className={classes.pageContainer}>
-                                        <LandingPage/>
+                                        <LandingPage />
                                     </div>
                                 </Route>
                             </Switch>
