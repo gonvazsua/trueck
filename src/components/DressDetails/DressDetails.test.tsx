@@ -3,6 +3,8 @@ import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import DressDetails from "./DressDetails";
 import Header from "../Header/Header";
 import {RecoilRoot} from "recoil";
+import {shoppingCartAtom} from "../../common/shoppingCart/shoppingCartAtom";
+import React from "react";
 
 describe('DressDetails test', () => {
 
@@ -13,6 +15,19 @@ describe('DressDetails test', () => {
                 <DressDetails dress={dress} />
             </RecoilRoot>
             )
+    };
+
+    const renderComponentWithShoppingCartState = (dress: Dress, shoppingCartDress: Dress) => {
+        return render(
+            <RecoilRoot initializeState={
+                (snap) => {
+                    snap.set(shoppingCartAtom, [shoppingCartDress]);
+                }
+            }>
+                <Header loginComponent={<div />} />
+                <DressDetails dress={dress} />
+            </RecoilRoot>
+        )
     };
 
     test('should adds dress to wish list', async () => {
@@ -46,7 +61,7 @@ describe('DressDetails test', () => {
     test('should adds dress to shopping cart', async () => {
 
         const dress = {
-            id: 4,
+            id: 2,
             availableFrom: new Date(),
             description: 'Vestido tirantes midi rojo',
             pictures: [{
@@ -62,6 +77,36 @@ describe('DressDetails test', () => {
         }
 
         renderComponent(dress);
+
+        act(() => {
+            fireEvent.click(screen.getByTestId('DressDetails-addToShoppingCartButton'));
+        });
+
+        await waitFor(() => expect(screen.getByTestId('header-shoppingCart')).toHaveTextContent('1'));
+
+    });
+
+    test('should not add dress to shopping cart if it is already on it', async () => {
+
+        const dress = {
+            id: 4,
+            availableFrom: new Date(),
+            description: 'Vestido tirantes midi rojo',
+            pictures: [{
+                url: 'test',
+                main: true
+            }],
+            price: 108,
+            originalPrice: 205,
+            username: 'atonito',
+            tags: ['Vestido largo', 'Vestido noche'],
+            size: 'M',
+            blockingDates: [new Date()]
+        }
+
+        renderComponentWithShoppingCartState(dress, dress);
+
+        await waitFor(() => expect(screen.getByTestId('header-shoppingCart')).toHaveTextContent('1'));
 
         act(() => {
             fireEvent.click(screen.getByTestId('DressDetails-addToShoppingCartButton'));

@@ -24,11 +24,18 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
     const [shoppingCart, setShoppingCart] = useRecoilState(shoppingCartAtom);
 
     const handleOnClickAddToWishList = () => {
-        setWishList([...wishList, dress]);
+        const wishListDress = wishList.find(wishListDress => wishListDress.id === dress.id);
+        if(!wishListDress) {
+            setWishList([...wishList, dress]);
+            console.log('Added: ', wishList)
+        }
     };
 
     const handleOnClickAddToShoppingCart = () => {
-        setShoppingCart([...shoppingCart, dress]);
+        const shoppingCartDress = shoppingCart.find(shoppingCartDress => shoppingCartDress.id === dress.id);
+        if(!shoppingCartDress) {
+            setShoppingCart([...shoppingCart, dress]);
+        }
     };
 
     return (
