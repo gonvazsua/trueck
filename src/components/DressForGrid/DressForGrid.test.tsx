@@ -22,10 +22,19 @@ describe('DressForGrid test', () => {
             id: 1,
             availableFrom: new Date(),
             description: 'Amazona maxi vestido estampado selva con cinturon',
+            shortDescription: 'Amazona maxi vestido',
             pictures: [
-                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg'}
+                {
+                    main: true,
+                    url: 'test'
+                }
             ],
-            price: 152
+            price: 152,
+            originalPrice: 100,
+            username: 'username',
+            tags: ['test'],
+            size: 'M',
+            blockingDates: [new Date()]
         };
         renderComponent(dress);
 
@@ -42,10 +51,19 @@ describe('DressForGrid test', () => {
             id: 1,
             availableFrom: new Date(),
             description: 'Amazona maxi vestido estampado selva con cinturon',
+            shortDescription: 'Amazona maxi vestido',
             pictures: [
-                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg'}
+                {
+                    main: true,
+                    url: 'test'
+                }
             ],
-            price: 152
+            price: 152,
+            originalPrice: 100,
+            username: 'username',
+            tags: ['test'],
+            size: 'M',
+            blockingDates: [new Date()]
         };
         renderComponent(dress);
 
@@ -62,19 +80,25 @@ describe('DressForGrid test', () => {
             id: 1,
             availableFrom: new Date(),
             description: 'Amazona maxi vestido estampado selva con cinturon',
+            shortDescription: 'Amazona maxi vestido',
             pictures: [
-                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg'},
-                {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main: true}
+                {
+                    main: true,
+                    url: 'test'
+                }
             ],
-            price: 152
+            price: 152,
+            originalPrice: 100,
+            username: 'username',
+            tags: ['test'],
+            size: 'M',
+            blockingDates: [new Date()]
         };
         const r = renderComponent(dress);
 
         const dressPicture = screen.getByTestId('dressForGrid-dressPicture-' + dress.id);
 
-        r.debug();
-
-        await waitFor(() => expect(dressPicture).toHaveAttribute('style', 'background-image: url(https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg);'));
+        await waitFor(() => expect(dressPicture).toHaveAttribute('style', 'background-image: url(test);'));
     });
 
 });

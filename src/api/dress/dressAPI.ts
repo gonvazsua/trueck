@@ -4,6 +4,7 @@ import {API_HOST_NAME} from "../url";
 export interface Dress {
     id: number;
     description: string;
+    shortDescription: string;
     availableFrom: Date;
     pictures: DressPicture[];
     price: number;

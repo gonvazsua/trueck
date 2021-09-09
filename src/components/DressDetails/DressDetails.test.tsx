@@ -36,6 +36,7 @@ describe('DressDetails test', () => {
             id: 4,
             availableFrom: new Date(),
             description: 'Vestido tirantes midi rojo',
+            shortDescription: 'Amazona maxi vestido',
             pictures: [{
                 url: 'test',
                 main: true
@@ -64,6 +65,7 @@ describe('DressDetails test', () => {
             id: 2,
             availableFrom: new Date(),
             description: 'Vestido tirantes midi rojo',
+            shortDescription: 'Amazona maxi vestido',
             pictures: [{
                 url: 'test',
                 main: true
@@ -92,6 +94,7 @@ describe('DressDetails test', () => {
             id: 4,
             availableFrom: new Date(),
             description: 'Vestido tirantes midi rojo',
+            shortDescription: 'Amazona maxi vestido',
             pictures: [{
                 url: 'test',
                 main: true

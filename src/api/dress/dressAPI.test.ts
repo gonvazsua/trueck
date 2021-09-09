@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-import {LoginResponse} from "../login/loginAPI";
 import {Dress, getDresses} from "./dressAPI";
 import moment from "moment";
 import {API_HOST_NAME} from "../url";
@@ -8,7 +7,24 @@ jest.mock('axios');
 describe('Dress API Test', () => {
 
     const mockDressList = [
-        {id: 1, availableFrom: new Date(), description: 'Amazona maxi vestido estampado selva con cinturon', picture: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', price: 152},
+        {
+            id: 1,
+            availableFrom: new Date(),
+            description: 'Amazona maxi vestido estampado selva con cinturon',
+            shortDescription: 'Amazona maxi vestido',
+            pictures: [
+                {
+                    main: true,
+                    url: 'test'
+                }
+            ],
+            price: 152,
+            originalPrice: 100,
+            username: 'username',
+            tags: ['test'],
+            size: 'M',
+            blockingDates: [new Date()]
+        },
     ]
 
     test('should call to dress API', async () => {

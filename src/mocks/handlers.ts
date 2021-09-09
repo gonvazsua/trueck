@@ -21,6 +21,7 @@ const dressList: Dress[] = [
         id: 1,
         availableFrom: new Date(),
         description: 'Amazona maxi vestido estampado selva con cinturon',
+        shortDescription: 'Amazona maxi vestido',
         pictures: [
             {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', main: true},
             {url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-141-min-scaled.jpg', main: false},
@@ -39,6 +40,7 @@ const dressList: Dress[] = [
         id: 2,
         availableFrom: new Date(),
         description: 'Florisa vestido largo vaporoso halter',
+        shortDescription: 'Florisa vestido largo',
         pictures: [{
             url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-141-min-scaled.jpg',
             main: true
@@ -54,6 +56,7 @@ const dressList: Dress[] = [
         id: 3,
         availableFrom: new Date(),
         description: 'Daleside vestido midi beige frunce cintura',
+        shortDescription: 'Deleside vestido midi',
         pictures: [{url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-94.jpg', main: true}],
         price: 87,
         originalPrice: 154,
@@ -66,6 +69,7 @@ const dressList: Dress[] = [
         id: 4,
         availableFrom: new Date(),
         description: 'Vestido tirantes midi rojo',
+        shortDescription: 'Vestido tirantes',
         pictures: [{
             url: 'https://borow.es/wp-content/uploads/2021/04/Alice-Olicia-vestido-tirantes-midi-rojo-azul-1.jpeg',
             main: true

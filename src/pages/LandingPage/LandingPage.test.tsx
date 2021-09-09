@@ -18,9 +18,20 @@ describe('LandingPage test', () => {
             id: 1,
             availableFrom: new Date(),
             description: 'Amazona maxi vestido estampado selva con cinturon',
-            pictures: [{url: 'https://borow.es/wp-content/uploads/2021/07/BOROW_GUILLESOLA_ECCM_-35.jpg', main:true}],
-            price: 152
-        }
+            shortDescription: 'Amazona maxi vestido',
+            pictures: [
+                {
+                    main: true,
+                    url: 'test'
+                }
+            ],
+            price: 152,
+            originalPrice: 100,
+            username: 'username',
+            tags: ['test'],
+            size: 'M',
+            blockingDates: [new Date()]
+        },
     ];
 
     const history = createMemoryHistory();
