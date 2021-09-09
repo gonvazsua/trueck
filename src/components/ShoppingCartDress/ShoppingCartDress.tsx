@@ -9,7 +9,7 @@ const ShoppingCartDress = (props: ShoppingCartDressProps): JSX.Element => {
 
     const {dress} = props;
 
-    return (<div>{dress.id}</div>)
+    return (<div>{dress.shortDescription}</div>)
 };
 
 export default ShoppingCartDress;

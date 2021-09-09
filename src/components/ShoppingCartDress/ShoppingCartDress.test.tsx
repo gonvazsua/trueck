@@ -32,6 +32,7 @@ describe('LandingPage test', () => {
 
         renderComponent(dress);
 
+        //expect(screen.queryAllByText('Amazona maxi vestido')).toHaveLength(1);
 
     });
 
