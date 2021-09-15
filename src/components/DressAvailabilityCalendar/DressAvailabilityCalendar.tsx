@@ -32,7 +32,11 @@ const DressAvailabilityCalendar = (props: DressAvailabilityCalendarProps): JSX.E
 
     const printNotAvailableMessage = () => {
         return (
-            <Typography data-testid={'DressAvailabilityCalendar-not-available-msg'}>
+            <Typography
+                variant={'caption'}
+                color={'error'}
+                data-testid={'DressAvailabilityCalendar-not-available-msg'}
+            >
                 No disponible para la fecha seleccionada
             </Typography>
         )
@@ -40,7 +44,11 @@ const DressAvailabilityCalendar = (props: DressAvailabilityCalendarProps): JSX.E
 
     const printAvailableMessage = () => {
         return (
-            <Typography data-testid={'DressAvailabilityCalendar-available-msg'}>
+            <Typography
+                variant={'caption'}
+                color={'primary'}
+                data-testid={'DressAvailabilityCalendar-available-msg'}
+            >
                 Bien! El vestido está disponible
             </Typography>
         )
