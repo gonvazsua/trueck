@@ -5,9 +5,11 @@ import DressDetailsPage from "./DressDetailsPage";
 import {Dress, getDressById} from "../../api/dress/dressAPI";
 import {RecoilRoot} from "recoil";
 import {AxiosResponse} from "axios";
+import MomentUtils from "@date-io/moment";
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 
 jest.mock('../../api/dress/dressAPI');
-describe('LandingPage test', () => {
+describe('DressDetailsPage test', () => {
 
     beforeEach(() => {
         jest.restoreAllMocks();
@@ -18,7 +20,9 @@ describe('LandingPage test', () => {
         return render(
             <RecoilRoot>
                 <MemoryRouter>
-                    <DressDetailsPage/>`
+                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <DressDetailsPage/>`
+                    </MuiPickersUtilsProvider>
                 </MemoryRouter>
             </RecoilRoot>
         )

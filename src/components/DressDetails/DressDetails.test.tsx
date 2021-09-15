@@ -5,14 +5,18 @@ import Header from "../Header/Header";
 import {RecoilRoot} from "recoil";
 import {shoppingCartAtom} from "../../common/shoppingCart/shoppingCartAtom";
 import React from "react";
+import MomentUtils from "@date-io/moment";
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 
 describe('DressDetails test', () => {
 
     const renderComponent = (dress: Dress) => {
         return render(
             <RecoilRoot>
-                <Header loginComponent={<div />} />
-                <DressDetails dress={dress} />
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <Header loginComponent={<div />} />
+                    <DressDetails dress={dress} />
+                </MuiPickersUtilsProvider>
             </RecoilRoot>
             )
     };
@@ -24,8 +28,10 @@ describe('DressDetails test', () => {
                     snap.set(shoppingCartAtom, [shoppingCartDress]);
                 }
             }>
-                <Header loginComponent={<div />} />
-                <DressDetails dress={dress} />
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <Header loginComponent={<div />} />
+                    <DressDetails dress={dress} />
+                </MuiPickersUtilsProvider>
             </RecoilRoot>
         )
     };
