@@ -22,14 +22,14 @@ const SearchDressForm = (props: SearchDressFormProps): JSX.Element => {
 
     const handleChangeDateFrom = (from: string | null | undefined) => {
         if(from) {
-            const date = moment(from).toDate();
+            const date = moment(from, 'DD/MM/yyyy').toDate();
             setDateFrom(date);
         }
     }
 
     const handleChangeDateTo = (to: string | null | undefined) => {
         if(to) {
-            const date = moment(to).toDate();
+            const date = moment(to, 'DD/MM/yyyy').toDate();
             setDateTo(date);
         }
     }

@@ -79,9 +79,9 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
             </Grid>
             <Grid item lg={12}>
                 <Typography variant={'subtitle1'}>
-                    FECHAS NO DISPONIBLES
+                    COMPROBAR DISPONIBILIDAD
                 </Typography>
-                <DressAvailabilityCalendar blockingDates={dress.blockingDates}/>
+                <DressAvailabilityCalendar dressId={dress.id} />
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>

@@ -1,7 +1,7 @@
 import {rest} from 'msw';
 import {API_HOST_NAME} from "../api/url";
 import {User} from "../common/user/userAtom";
-import {Dress} from "../api/dress/dressAPI";
+import {Dress, DressAvailabilityResponse} from "../api/dress/dressAPI";
 import {UserResponse} from "../api/user/userAPI";
 import moment from "moment/moment";
 
@@ -153,5 +153,22 @@ export const handlers = [
             )
         }
 
+    }),
+
+    rest.get<Request, DressAvailabilityResponse>(`${API_HOST_NAME}/dresses/:dressId/availability/:isoDate`, (req, res, ctx) => {
+        const {isoDate} = req.params
+        const momentDate = moment(isoDate);
+        console.log(momentDate.format('D'))
+        if(momentDate.format('D').startsWith('1')) {
+            return res(
+                ctx.json({isAvailable: true}),
+                ctx.status(200),
+            )
+        } else {
+            return res(
+                ctx.json({isAvailable: false}),
+                ctx.status(200),
+            )
+        }
     }),
 ]

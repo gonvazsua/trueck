@@ -9,6 +9,10 @@ import {AxiosResponse} from "axios";
 jest.mock('../../api/dress/dressAPI');
 describe('LandingPage test', () => {
 
+    beforeEach(() => {
+        jest.restoreAllMocks();
+    });
+
     const renderComponent = () => {
 
         return render(
@@ -19,10 +23,6 @@ describe('LandingPage test', () => {
             </RecoilRoot>
         )
     };
-
-    beforeEach(() => {
-        jest.restoreAllMocks();
-    });
 
     test('should render component', () => {
         renderComponent();

@@ -21,6 +21,10 @@ export interface DressPicture {
     name?: string;
 }
 
+export interface DressAvailabilityResponse {
+    isAvailable: boolean;
+}
+
 export const getDresses = async (dateFrom: string, dateTo: string, dressType: string, priceRange: number[]): Promise<AxiosResponse<Dress[]>> => {
     const parameters = {
         dateFrom: dateFrom,
@@ -33,4 +37,9 @@ export const getDresses = async (dateFrom: string, dateTo: string, dressType: st
 
 export const getDressById = async (dressId: number): Promise<AxiosResponse<Dress>> => {
     return await axios.get(`${API_HOST_NAME}/dresses/${dressId}`);
+};
+
+export const checkAvailability = async (dressId: number, date: Date): Promise<AxiosResponse<DressAvailabilityResponse>> => {
+    const isoDate = date.toISOString();
+    return await axios.get(`${API_HOST_NAME}/dresses/${dressId}/availability/${isoDate}`);
 };
