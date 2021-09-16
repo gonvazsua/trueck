@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {Dress} from "../../api/dress/dressAPI";
+import {Dress, ShoppingCartDress} from "../../api/dress/dressAPI";
 import DressTags from "../DressTags/DressTags";
 import {makeStyles} from "@material-ui/core";
 import SizeSelector from "../SizeSelector/SizeSelector";
@@ -22,6 +22,8 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
     const classes = useStyles();
     const [wishList, setWishList] = useRecoilState(wishListAtom);
     const [shoppingCart, setShoppingCart] = useRecoilState(shoppingCartAtom);
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+    const [isDressAvailableByDate, setIsDressAvailableByDate] = useState<Boolean | undefined>(false);
 
     const handleOnClickAddToWishList = () => {
         const wishListDress = wishList.find(wishListDress => wishListDress.id === dress.id);
@@ -31,9 +33,13 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
     };
 
     const handleOnClickAddToShoppingCart = () => {
-        const shoppingCartDress = shoppingCart.find(shoppingCartDress => shoppingCartDress.id === dress.id);
-        if(!shoppingCartDress) {
-            setShoppingCart([...shoppingCart, dress]);
+        const shoppingCartDress = shoppingCart.find(shoppingCartDress => shoppingCartDress.dress.id === dress.id);
+        if(!shoppingCartDress && selectedDate) {
+            const currentShoppingCartDress: ShoppingCartDress = {
+                dress: dress,
+                date: selectedDate
+            };
+            setShoppingCart([...shoppingCart, currentShoppingCartDress]);
         }
     };
 
@@ -81,7 +87,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                 <Typography variant={'subtitle1'}>
                     COMPROBAR DISPONIBILIDAD
                 </Typography>
-                <DressAvailabilityCalendar dressId={dress.id} />
+                <DressAvailabilityCalendar dressId={dress.id} dateSelectedFn={setSelectedDate} isDressAvailableFn={setIsDressAvailableByDate} />
                 <hr color={'grey'} className={classes.separator}/>
             </Grid>
             <Grid item lg={12}>
@@ -93,6 +99,7 @@ const DressDetails = (props: DressDetailsProps): JSX.Element => {
                     fullWidth
                     data-testid={'DressDetails-addToShoppingCartButton'}
                     onClick={() => handleOnClickAddToShoppingCart()}
+                    disabled={!isDressAvailableByDate}
                 >
                     LO QUIERO
                 </Button>

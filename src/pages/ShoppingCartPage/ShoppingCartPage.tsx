@@ -13,9 +13,9 @@ const ShoppingCartPage = (): JSX.Element => {
 
     const renderShoppingCartDresses = () => {
         return (
-            shoppingCartDresses.map(dress => (
-                    <Grid item lg={12} data-testid={`ShoppingCartPage-dress-${dress.id}`} key={dress.id}>
-                        <ShoppingCartDress dress={dress} key={dress.id}/>
+            shoppingCartDresses.map(cartDress => (
+                    <Grid item lg={12} data-testid={`ShoppingCartPage-dress-${cartDress.dress.id}`} key={cartDress.dress.id}>
+                        <ShoppingCartDress dress={cartDress.dress} key={cartDress.dress.id}/>
                     </Grid>
                 )
             )

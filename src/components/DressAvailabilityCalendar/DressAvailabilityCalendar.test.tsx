@@ -14,28 +14,23 @@ describe('DressAvailabilityCalendar test', () => {
         jest.restoreAllMocks();
     });
 
-    const renderComponent = (dressId: number) => {
+    const renderComponent = (dressId: number, setDateFunction?: () => void, setDressAvailableFunction?: () => void) => {
+        const dateFunction  = setDateFunction ? setDateFunction : () => {};
+        const availabilityFunction  = setDressAvailableFunction ? setDressAvailableFunction : () => {};
         return render(
             <MuiPickersUtilsProvider utils={MomentUtils}>
-                <DressAvailabilityCalendar dressId={dressId}/>
+                <DressAvailabilityCalendar dressId={dressId} dateSelectedFn={dateFunction} isDressAvailableFn={availabilityFunction} />
             </MuiPickersUtilsProvider>
             )
     };
 
     const selectCalendarDate = async (calendarDay: number) => {
         const calendar = await waitFor(() => screen.getByTestId('DressAvailabilityCalendar-date-btn'));
-        // await act(async () => {
-        //     await fireEvent.click(calendar);
-        // });
         await fireEvent.click(calendar);
-        //await waitFor(() => screen.getByRole('dialog'))
-        //await waitFor(() => screen.getByText(calendarDay));
-        // await act(() => {
-        //     fireEvent.click(screen.getByText(calendarDay));
-        // });
         await act(async () => {
             await fireEvent.click(calendar);
             await fireEvent.click(screen.getByText(calendarDay));
+            await fireEvent.click(screen.getByText('OK'));
         });
     };
 
@@ -61,9 +56,8 @@ describe('DressAvailabilityCalendar test', () => {
 
         await selectCalendarDate(tomorrow.date());
 
-        //TODO
-        //await waitFor(() => expect(checkAvailability).toBeCalled());
-    //
+        await waitFor(() => expect(checkAvailability).toBeCalled());
+
     });
 
     test('should not show availability message when loading the page', async () => {
@@ -95,8 +89,7 @@ describe('DressAvailabilityCalendar test', () => {
 
         await selectCalendarDate(tomorrow.date());
 
-        //TODO
-        //await waitFor(() => expect(screen.getByTestId('DressAvailabilityCalendar-available-msg')).toBeInTheDocument(), { interval: 1000 });
+        await waitFor(() => expect(screen.getByTestId('DressAvailabilityCalendar-available-msg')).toBeInTheDocument(), { interval: 1000 });
     });
 
     test('should show not available message when dress is not available by date', async () => {
@@ -120,10 +113,57 @@ describe('DressAvailabilityCalendar test', () => {
 
         await selectCalendarDate(tomorrow.date());
 
-        //TODO
-        //await waitFor(() => expect(screen.getByTestId('DressAvailabilityCalendar-not-available-msg')).toBeInTheDocument(), { interval: 1000 });
+        await waitFor(() => expect(screen.getByTestId('DressAvailabilityCalendar-not-available-msg')).toBeInTheDocument(), { interval: 1000 });
     });
 
+    test('should call to callback function when date is selected and available', async () => {
+        const dressId = 1;
+        const tomorrow = moment().add(1,'days');
+        const setDateFunction = jest.fn();
+        const setDressAvailableFunction = jest.fn();
 
+        (checkAvailability as jest.Mock).mockImplementation(() => {
+            return new Promise<AxiosResponse<DressAvailabilityResponse>>((resolve) => {
+                const axiosResponse: AxiosResponse = {
+                    data: {isAvailable: true},
+                    status: 200,
+                    statusText: 'OK',
+                    config: {},
+                    headers: {},
+                };
+                resolve(axiosResponse);
+            });
+        });
+
+        renderComponent(dressId, setDateFunction, setDressAvailableFunction);
+        await selectCalendarDate(tomorrow.date());
+        expect(setDateFunction).toHaveBeenCalled();
+        expect(setDressAvailableFunction).toHaveBeenCalledWith(true);
+    });
+
+    test('should call to callback function when date is selected and not available', async () => {
+        const dressId = 1;
+        const tomorrow = moment().add(1,'days');
+        const setDateFunction = jest.fn();
+        const setDressAvailableFunction = jest.fn();
+
+        (checkAvailability as jest.Mock).mockImplementation(() => {
+            return new Promise<AxiosResponse<DressAvailabilityResponse>>((resolve) => {
+                const axiosResponse: AxiosResponse = {
+                    data: {isAvailable: false},
+                    status: 200,
+                    statusText: 'OK',
+                    config: {},
+                    headers: {},
+                };
+                resolve(axiosResponse);
+            });
+        });
+
+        renderComponent(dressId, setDateFunction, setDressAvailableFunction);
+        await selectCalendarDate(tomorrow.date());
+        expect(setDateFunction).toHaveBeenCalled();
+        expect(setDressAvailableFunction).toHaveBeenCalledWith(false);
+    });
 
 });

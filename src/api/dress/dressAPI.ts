@@ -21,6 +21,11 @@ export interface DressPicture {
     name?: string;
 }
 
+export interface ShoppingCartDress {
+    dress: Dress;
+    date: Date;
+}
+
 export interface DressAvailabilityResponse {
     isAvailable: boolean;
 }

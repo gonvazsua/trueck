@@ -9,14 +9,16 @@ import Typography from "@material-ui/core/Typography";
 
 export interface DressAvailabilityCalendarProps {
     dressId: number;
+    dateSelectedFn: (selectedDate: Date | undefined) => void;
+    isDressAvailableFn: (selectedDate: Boolean | undefined) => void;
 };
 
 const DressAvailabilityCalendar = (props: DressAvailabilityCalendarProps): JSX.Element => {
 
-    const { dressId } = props;
+    const { dressId, dateSelectedFn, isDressAvailableFn } = props;
     const classes = useStyles();
     const [availabilityDate, setAvailabilityDate] = useState<Date>(new Date());
-    const [isAvailable, setIsAvailable] = useState<boolean | undefined>(undefined);
+    const [isAvailable, setIsAvailable] = useState<Boolean | undefined>(undefined);
 
     const handleChangeAvailabilityDate = async (date: string | null | undefined) => {
         if(date) {
@@ -25,6 +27,12 @@ const DressAvailabilityCalendar = (props: DressAvailabilityCalendarProps): JSX.E
             try{
                 const isAvailableResponse =  await checkAvailability(dressId, availability);
                 setIsAvailable(isAvailableResponse.data.isAvailable);
+                if(isAvailableResponse.data.isAvailable) {
+                    dateSelectedFn(availability);
+                } else {
+                    dateSelectedFn(undefined);
+                }
+                isDressAvailableFn(isAvailableResponse.data.isAvailable);
             } catch (error) {
             }
         }

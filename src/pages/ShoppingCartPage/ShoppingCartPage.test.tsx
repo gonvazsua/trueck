@@ -1,4 +1,4 @@
-import {Dress} from "../../api/dress/dressAPI";
+import {Dress, ShoppingCartDress} from "../../api/dress/dressAPI";
 import {createMemoryHistory} from "history";
 import React from "react";
 import {render, screen} from "@testing-library/react";
@@ -9,42 +9,50 @@ import ShoppingCartPage from "./ShoppingCartPage";
 
 describe('ShoppingCartPageTest', () => {
 
-    let shoppingCartDresses: Dress[] = [
+    let shoppingCartDresses: ShoppingCartDress[] = [
         {
-            id: 4,
-            availableFrom: new Date(),
-            description: 'Vestido tirantes midi rojo',
-            pictures: [{
-                url: 'test',
-                main: true
-            }],
-            price: 108,
-            originalPrice: 200,
-            username: 'atonito',
-            tags: ['Vestido largo', 'Vestido noche'],
-            size: 'M',
-            blockingDates: [new Date()]
+            dress: {
+                id: 4,
+                availableFrom: new Date(),
+                description: 'Vestido tirantes midi rojo',
+                shortDescription: 'Vestido tirantes',
+                pictures: [{
+                    url: 'test',
+                    main: true
+                }],
+                price: 108,
+                originalPrice: 200,
+                username: 'atonito',
+                tags: ['Vestido largo', 'Vestido noche'],
+                size: 'M',
+                blockingDates: [new Date()],
+            },
+            date: new Date()
         },
         {
-            id: 1,
-            availableFrom: new Date(),
-            description: 'Vestido tirantes midi azul',
-            pictures: [{
-                url: 'test2',
-                main: false
-            }],
-            price: 125,
-            originalPrice: 180,
-            username: 'atonito',
-            tags: ['Vestido largo', 'Vestido noche'],
-            size: 'M',
-            blockingDates: [new Date()]
+            dress: {
+                id: 1,
+                availableFrom: new Date(),
+                description: 'Vestido tirantes midi azul',
+                shortDescription: 'Vestido tirantes azul',
+                pictures: [{
+                    url: 'test2',
+                    main: false
+                }],
+                price: 125,
+                originalPrice: 180,
+                username: 'atonito',
+                tags: ['Vestido largo', 'Vestido noche'],
+                size: 'M',
+                blockingDates: [new Date()]
+            },
+            date: new Date()
         }
     ];
 
     const history = createMemoryHistory();
 
-    const renderComponent = (dresses: Dress[]) => {
+    const renderComponent = (dresses: ShoppingCartDress[]) => {
         return render(
             <RecoilRoot initializeState={
                 (snap) => {
